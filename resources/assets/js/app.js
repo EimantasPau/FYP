@@ -14,8 +14,10 @@ Vue.use(Vuetify)
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
+
 import { store } from './store'
 import Home from './components/Home'
+import Signup from './components/Signup'
 const routes = [
     {
         path: '/users',
@@ -26,6 +28,11 @@ const routes = [
         path: '/',
         component: Home,
         name: 'Home'
+    },
+    {
+        path: '/signup',
+        component: Signup,
+        name: 'Signup'
     }
 ]
 
@@ -38,12 +45,13 @@ const router = new VueRouter({
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+import App from './components/App'
 import ExampleComponent from './components/ExampleComponent'
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
 const app = new Vue({
     el: '#app',
     components: {
-        ExampleComponent
+        App
     },
     router,
     store,
