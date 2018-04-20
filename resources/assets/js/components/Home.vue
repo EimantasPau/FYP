@@ -9,8 +9,8 @@
                         class="white--text"
                 >
                     <img src="../../images/vuetify.png" alt="Vuetify.js" height="200">
-                    <h1 class="white--text mb-2 display-1 text-xs-center">Parallax Template</h1>
-                    <div class="subheading mb-3 text-xs-center">Powered by Vuetify</div>
+                    <h1 class="white--text mb-2 display-1 text-xs-center">Education Plus</h1>
+                    <div class="subheading mb-3 text-xs-center">Learn as you go</div>
                     <v-btn
                             class="blue lighten-2 mt-5"
                             dark

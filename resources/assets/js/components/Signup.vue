@@ -4,6 +4,7 @@
            <v-flex md4>
                   <v-card>
                       <v-card-text>
+                          <app-alert v-if="error" @dismissed="onDismissed" :text="error"></app-alert>
                           <v-container>
                               <h3 class="headline mb-0">Sign up</h3>
                               <form @submit.prevent="onSignUp">
@@ -57,6 +58,9 @@
             },
             user() {
                 return this.$store.getters.user
+            },
+            error() {
+                return this.$store.getters.error
             }
         },
         methods: {
@@ -71,6 +75,9 @@
                     password: this.password
                 }
                 this.$store.dispatch('signUserUp', formData)
+            },
+            onDismissed() {
+                this.$store.dispatch('clearError')
             }
         },
         watch: {

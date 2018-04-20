@@ -14,40 +14,17 @@ Vue.use(Vuetify)
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
-
+import AlertComponent from './components/Shared/Alert'
+Vue.component('app-alert', AlertComponent)
 import { store } from './store'
-import Home from './components/Home'
-import Signup from './components/Signup'
-const routes = [
-    {
-        path: '/users',
-        component: ExampleComponent,
-        name: 'Example'
-    },
-    {
-        path: '/',
-        component: Home,
-        name: 'Home'
-    },
-    {
-        path: '/signup',
-        component: Signup,
-        name: 'Signup'
-    }
-]
+import router from './router'
 
-const router = new VueRouter({
-    routes,
-    mode: 'history'
-})
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 import App from './components/App'
-import ExampleComponent from './components/ExampleComponent'
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
 const app = new Vue({
     el: '#app',
     components: {
@@ -56,6 +33,7 @@ const app = new Vue({
     router,
     store,
     created() {
+        this.$store.dispatch('autoSignIn')
         this.$store.dispatch('getUsers')
     }
 });

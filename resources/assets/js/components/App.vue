@@ -9,6 +9,7 @@
                        flat
                        router
                        :to="item.link">{{item.title}}</v-btn>
+                <v-btn v-if="userIsAuthenticated" @click="logout" flat>Log out</v-btn>
             </v-toolbar-items>
         </v-toolbar>
         <router-view></router-view>
@@ -42,6 +43,12 @@
             },
             userIsAuthenticated() {
                 return this.$store.getters.user !== null && this.$store.getters.user !==undefined
+            }
+        },
+        methods: {
+            logout() {
+                this.$store.dispatch('logOut')
+                this.$router.push('/')
             }
         }
     }
