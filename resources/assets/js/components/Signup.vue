@@ -20,6 +20,13 @@
                                           type="email"
                                           :rules="[isEmpty(email), isAvailableEmail]"
                                   ></v-text-field>
+                                  <v-radio-group v-model="role_id"
+                                                 row
+                                                 :rules="[isEmpty(role_id)]"
+                                  label="Please choose your account type.">
+                                      <v-radio label="Student" value="1"></v-radio>
+                                      <v-radio label="Tutor" value="2" ></v-radio>
+                                  </v-radio-group>
                                   <v-text-field
                                           label="Password"
                                           v-model="password"
@@ -45,6 +52,7 @@
                 name: '',
                 email: '',
                 password: '',
+                role_id: '',
                 formErrors: {}
             }
         },
@@ -72,6 +80,7 @@
                 var formData = {
                     name: this.name,
                     email: this.email,
+                    role_id: this.role_id,
                     password: this.password
                 }
                 this.$store.dispatch('signUserUp', formData)

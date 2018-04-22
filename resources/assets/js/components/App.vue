@@ -12,7 +12,15 @@
                 <v-btn v-if="userIsAuthenticated" @click="logout" flat>Log out</v-btn>
             </v-toolbar-items>
         </v-toolbar>
-        <router-view></router-view>
+       <transition name="fade"
+       mode="out-in">
+           <router-view></router-view>
+       </transition>
+        <v-footer class="pa-3">
+            <v-flex text-xs-center>
+                <div>&copy; {{ new Date().getFullYear() }}</div>
+            </v-flex>
+        </v-footer>
     </v-app>
 </template>
 
@@ -32,18 +40,37 @@
                     { title: 'Sign up', link: '/signup'},
                 ]
 
-                if(this.userIsAuthenticated) {
+                if(this.userIsStudent) {
                     menuItems = [
+                        { title: 'Home', link: '/'},
                         { title: 'Browse teachers', link: ''},
                         { title: 'View courses', link: ''},
-                        { title: 'My profile', link: ''},
+                        { title: 'My account', link: '/student/account' }
+                    ]
+                }
+
+                if(this.userIsTutor) {
+                    menuItems = [
+                        { title: 'Home', link: '/'},
+                        { title: 'My account', link: '/tutor/account'},
                     ]
                 }
                 return menuItems
             },
+            userIsStudent() {
+                return this.$store.getters.user !== null
+                    && this.$store.getters.user !==undefined
+                    && this.$store.getters.user.role_id == 1
+            },
+            userIsTutor() {
+                return this.$store.getters.user !== null
+                    && this.$store.getters.user !==undefined
+                    && this.$store.getters.user.role_id == 2
+            },
             userIsAuthenticated() {
                 return this.$store.getters.user !== null && this.$store.getters.user !==undefined
             }
+
         },
         methods: {
             logout() {

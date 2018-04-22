@@ -20,7 +20,10 @@
                                         type="password"
                                         :rules="[isEmpty(password)]"
                                 ></v-text-field>
-                                <v-btn type="submit">Sign in</v-btn>
+                                <v-btn
+                                        type="submit"
+                                        :loading="this.$store.getters.loading"
+                                        :disabled="this.$store.getters.loading">Sign in</v-btn>
                             </form>
                         </v-container>
                     </v-card-text>

@@ -29,8 +29,7 @@ export const store = new Vuex.Store({
    },
    actions: {
        getUsers({commit}) {
-           const token = localStorage.getItem('token')
-           axios.get('/api/users?token=' + token)
+           axios.get('/api/users')
                .then(response => commit('loadUsers', response.data))
        },
        autoSignIn({commit}) {
@@ -43,7 +42,7 @@ export const store = new Vuex.Store({
                    })
            }
        },
-       signUserUp({commit}, payload) {
+       signUserUp({commit, dispatch}, payload) {
            commit('setLoading', true)
            commit('clearError')
            axios.post('/api/signup', payload)
@@ -56,6 +55,8 @@ export const store = new Vuex.Store({
                    commit('setError', errors.response.data.errors)
                    console.log(errors.response.data.errors)
                })
+
+           dispatch('signUserIn', payload)
        },
        signUserIn({commit}, payload) {
            commit('setLoading', true)
