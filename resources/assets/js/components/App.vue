@@ -40,32 +40,15 @@
                     { title: 'Sign up', link: '/signup'},
                 ]
 
-                if(this.userIsStudent) {
+                if(this.userIsAuthenticated) {
                     menuItems = [
                         { title: 'Home', link: '/'},
                         { title: 'Browse teachers', link: ''},
                         { title: 'View courses', link: ''},
-                        { title: 'My account', link: '/student/account' }
-                    ]
-                }
-
-                if(this.userIsTutor) {
-                    menuItems = [
-                        { title: 'Home', link: '/'},
-                        { title: 'My account', link: '/tutor/account'},
+                        { title: 'My account', link: '/account'},
                     ]
                 }
                 return menuItems
-            },
-            userIsStudent() {
-                return this.$store.getters.user !== null
-                    && this.$store.getters.user !==undefined
-                    && this.$store.getters.user.role_id == 1
-            },
-            userIsTutor() {
-                return this.$store.getters.user !== null
-                    && this.$store.getters.user !==undefined
-                    && this.$store.getters.user.role_id == 2
             },
             userIsAuthenticated() {
                 return this.$store.getters.user !== null && this.$store.getters.user !==undefined

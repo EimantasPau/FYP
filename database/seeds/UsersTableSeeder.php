@@ -16,6 +16,8 @@ class UsersTableSeeder extends Seeder
             DB::table('users')->insert([
                 'name' => $faker->name(),
                 'email' => $faker->email(),
+                'role_id' => '1',
+                'bio' => $faker->paragraph(6),
                 'password' => '',
                 'created_at' => $faker->dateTimeBetween('-6 month', '6 month'),
             ]);

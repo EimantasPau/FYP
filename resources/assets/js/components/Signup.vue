@@ -4,7 +4,9 @@
            <v-flex md4>
                   <v-card>
                       <v-card-text>
-                          <app-alert v-if="error" @dismissed="onDismissed" :text="error"></app-alert>
+                          <transition name="fade" mode="out-in">
+                              <app-alert v-if="error" @dismissed="onDismissed" :text="error"></app-alert>
+                          </transition>
                           <v-container>
                               <h3 class="headline mb-0">Sign up</h3>
                               <form @submit.prevent="onSignUp">
@@ -18,15 +20,13 @@
                                           label="E-mail"
                                           v-model="email"
                                           type="email"
-                                          :rules="[isEmpty(email), isAvailableEmail]"
+                                          :rules="[isEmpty(email)]"
                                   ></v-text-field>
-                                  <v-radio-group v-model="role_id"
-                                                 row
-                                                 :rules="[isEmpty(role_id)]"
-                                  label="Please choose your account type.">
-                                      <v-radio label="Student" value="1"></v-radio>
-                                      <v-radio label="Tutor" value="2" ></v-radio>
-                                  </v-radio-group>
+                                  <v-text-field multi-line
+                                                label="Please tell us a little about yourself"
+                                                hint="This will be shown on your profile for other users."
+                                                v-model="bio">
+                                  </v-text-field>
                                   <v-text-field
                                           label="Password"
                                           v-model="password"
@@ -52,18 +52,11 @@
                 name: '',
                 email: '',
                 password: '',
-                role_id: '',
+                bio: '',
                 formErrors: {}
             }
         },
         computed: {
-            isAvailableEmail() {
-                if(this.formErrors.email == null || this.formErrors.email === undefined){
-                    return true;
-                } else {
-                    return this.formErrors.email[0]
-                }
-            },
             user() {
                 return this.$store.getters.user
             },
@@ -80,7 +73,7 @@
                 var formData = {
                     name: this.name,
                     email: this.email,
-                    role_id: this.role_id,
+                    bio: this.bio,
                     password: this.password
                 }
                 this.$store.dispatch('signUserUp', formData)

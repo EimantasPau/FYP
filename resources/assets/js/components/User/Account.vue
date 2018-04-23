@@ -1,10 +1,10 @@
 <template>
-    <v-container>
-        <v-layout row justify-around>
-            <v-flex md2 offset-md1>
-                <v-navigation-drawer permanent>
+    <v-container fill-height grid-list-md fluid>
+        <v-layout row wrap>
+            <v-flex xs12 md3>
+                <v-navigation-drawer permanent width="100%">
                     <v-toolbar flat>
-                        <v-list class="blue-grey lighten-4">
+                        <v-list class="blue-grey lighten-5">
                             <v-list-tile>
                                 <v-list-tile-title class="title">
                                     Your account
@@ -13,10 +13,10 @@
                         </v-list>
                     </v-toolbar>
                     <v-divider></v-divider>
-                    <v-list dense class="pt-0">
+                    <v-list class="pt-0">
                         <v-list-tile v-for="item in accountMenu"
                                      :key="item.title"
-                                     router :to="item.link" exact>
+                                     router :to="item.link" exact active-class="light-blue accent-4 white--text">
                             <v-list-tile-action>
                                 <v-icon>{{ item.icon }}</v-icon>
                             </v-list-tile-action>
@@ -27,8 +27,8 @@
                     </v-list>
                 </v-navigation-drawer>
             </v-flex>
-            <v-flex md8>
-                <v-card>
+            <v-flex xs12 md9>
+                <v-card height="100%">
                     <v-card-text>
                         <v-container>
                             <v-layout row wrap justify-center>
@@ -56,11 +56,11 @@
                 accountMenu: [
                     {
                         title: 'Personal information',
-                        link: '/tutor/account'
+                        link: '/account'
                     },
                     {
                         title: 'My courses',
-                        link: '/tutor/account/courses'
+                        link: '/account/courses'
                     },
                 ]
             }

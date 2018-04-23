@@ -20,3 +20,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('/signup', 'UserController@signup');
 Route::post('/signin', 'UserController@signin');
 Route::get('/users', 'UserController@index');
+Route::get('/user', 'UserController@user')->middleware('auth.jwt');
+Route::post('/user', 'UserController@update')->middleware('auth.jwt');

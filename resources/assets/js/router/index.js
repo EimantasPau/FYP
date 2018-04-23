@@ -6,13 +6,13 @@ import Home from '../components/Home'
 import Signup from '../components/Signup'
 import Signin from '../components/Signin'
 //student components
-import StudentAccount from '../components/Student/Account'
-import StudentCourses from '../components/Student/Courses'
-import StudentProfile from '../components/Student/Profile'
+import Account from '../components/User/Account'
+import Courses from '../components/User/Courses'
+import Profile from '../components/User/Profile'
 //tutor components
-import TutorAccount from '../components/Tutor/Account'
-import TutorCourses from '../components/Tutor/Courses'
-import TutorProfile from '../components/Tutor/Profile'
+import TutorAccount from '../components/User/Account'
+import TutorCourses from '../components/User/Courses'
+import TutorProfile from '../components/User/Profile'
 import ExampleComponent from '../components/ExampleComponent'
 import NotFoundComponent from '../components/NotFoundComponent'
 
@@ -32,33 +32,18 @@ export default new Router({
             component: Home,
             name: 'Home'
         },
-        //student account routes
+        //user account routes
         {
-            path: '/student/account',
-            component: StudentAccount,
-            children: [
-                {
-                    path: '',
-                    component: StudentProfile
-                },
-                {
-                    path: 'courses',
-                    component: StudentCourses
-                }
-            ]
-        },
-        //tutor account routes
-        {
-            path: '/tutor/account',
-            component: TutorAccount,
+            path: '/account',
+            component: Account,
             children: [
                 {
                     path: 'courses',
-                    component: TutorCourses
+                    component: Courses
                 },
                 {
                     path: '',
-                    component: TutorProfile
+                    component: Profile
                 }
             ]
 

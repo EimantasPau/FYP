@@ -32,12 +32,24 @@ export const store = new Vuex.Store({
            axios.get('/api/users')
                .then(response => commit('loadUsers', response.data))
        },
+       updateUser({commit}, payload) {
+           const token = localStorage.getItem('token')
+           axios.post('/api/user?token=' + token , payload,
+               {
+               headers: {
+                   'Content-Type': 'multipart/form-data'
+               }
+           })
+               .then(response => {
+                   console.log("the response: " + JSON.stringify(response));
+                   commit('setUser', response.data.user)
+               })
+       },
        autoSignIn({commit}) {
            const token = localStorage.getItem('token')
            if(token){
                axios.get('/api/user?token=' + token)
                    .then(response => {
-                       console.log(response)
                        commit('setUser', response.data.user)
                    })
            }
@@ -53,7 +65,6 @@ export const store = new Vuex.Store({
                .catch(errors => {
                    commit('setLoading', false)
                    commit('setError', errors.response.data.errors)
-                   console.log(errors.response.data.errors)
                })
 
            dispatch('signUserIn', payload)
@@ -72,7 +83,6 @@ export const store = new Vuex.Store({
                .catch(errors => {
                    commit('setLoading', false)
                    commit('setError', errors.response.data.errors)
-                   console.log(errors.response.data.errors)
                })
        },
        logOut({commit}) {
