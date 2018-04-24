@@ -16,11 +16,28 @@
        mode="out-in">
            <router-view></router-view>
        </transition>
-        <v-footer class="pa-3">
-            <v-flex text-xs-center>
-                <div>&copy; {{ new Date().getFullYear() }}</div>
-            </v-flex>
+        <v-footer height="auto" class="grey darken-3">
+            <v-layout row wrap justify-center>
+                <v-btn
+                        color="white"
+                        flat
+                        v-for="item in footerLinks"
+                        :key="item.title"
+                        router
+                        :to="item.link"
+                >
+                    {{ item.title }}
+                </v-btn>
+                <v-flex xs12 py-3 text-xs-center white--text>
+                    &copy;2018 — <strong>Education Plus</strong>
+                </v-flex>
+            </v-layout>
         </v-footer>
+        <!--<v-footer class="pa-3">-->
+            <!--<v-flex text-xs-center>-->
+                <!--<div>&copy; {{ new Date().getFullYear() }}</div>-->
+            <!--</v-flex>-->
+        <!--</v-footer>-->
     </v-app>
 </template>
 
@@ -52,6 +69,17 @@
             },
             userIsAuthenticated() {
                 return this.$store.getters.user !== null && this.$store.getters.user !==undefined
+            },
+            footerLinks() {
+                let footerLinks = [
+                    {title: 'Home', link: '/'},
+                    {title: 'Tutors', link: ''},
+                    {title: 'Courses', link: ''},
+                    {title: 'Account', link: '/account'},
+                    {title: 'Privacy policy', link: '/privacy'},
+                ]
+
+                return footerLinks
             }
 
         },

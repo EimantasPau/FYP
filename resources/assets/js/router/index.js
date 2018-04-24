@@ -14,7 +14,7 @@ import Education from '../components/User/Education'
 
 import ExampleComponent from '../components/ExampleComponent'
 import NotFoundComponent from '../components/NotFoundComponent'
-
+import PrivacyPolicy from '../components/PrivacyPolicy'
 import AuthGuard from './auth-guard'
 
 Vue.use(Router)
@@ -30,6 +30,10 @@ export default new Router({
             path: '/',
             component: Home,
             name: 'Home'
+        },
+        {
+          path: '/privacy',
+          component: PrivacyPolicy
         },
         //user account routes
         {

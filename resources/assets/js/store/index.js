@@ -30,7 +30,8 @@ export const store = new Vuex.Store({
            state.user.skills.push(payload)
        },
        removeSkill(state, payload) {
-           state.user.skills.splice(payload, 1)
+           var index = state.user.skills.indexOf(payload)
+           state.user.skills.splice(index, 1)
        }
    },
    actions: {

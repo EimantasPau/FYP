@@ -9,13 +9,15 @@
                     type="text"
                     @keyup.enter.native="onSubmit"
             ></v-text-field>
-            <v-chip close
-                    v-if="skills"
-                    v-for="skill in skills"
-                    :key="skill.id"
-                    @input="onClose(skill)">
-                {{skill.name}}
-            </v-chip>
+            <transition-group name="fade" mode="out-in">
+                <v-chip close
+                        v-if="skills"
+                        v-for="skill in skills"
+                        :key="skill.id"
+                        @input="onClose(skill)">
+                    {{skill.name}}
+                </v-chip>
+            </transition-group>
         </v-flex>
     </v-layout>
 </template>
@@ -37,8 +39,7 @@
           },
           onClose(skill) {
               this.$store.dispatch('removeSkill', skill)
-              var index = this.skills.indexOf(skills)
-              this.$store.getters.user.skills.splice(index,1)
+
           }
         },
         computed: {
