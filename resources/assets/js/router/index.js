@@ -5,14 +5,13 @@ import Home from '../components/Home'
 //auth components
 import Signup from '../components/Signup'
 import Signin from '../components/Signin'
-//student components
+//account components
 import Account from '../components/User/Account'
 import Courses from '../components/User/Courses'
 import Profile from '../components/User/Profile'
-//tutor components
-import TutorAccount from '../components/User/Account'
-import TutorCourses from '../components/User/Courses'
-import TutorProfile from '../components/User/Profile'
+import Experience from '../components/User/Experience'
+import Education from '../components/User/Education'
+
 import ExampleComponent from '../components/ExampleComponent'
 import NotFoundComponent from '../components/NotFoundComponent'
 
@@ -40,6 +39,14 @@ export default new Router({
                 {
                     path: 'courses',
                     component: Courses
+                },
+                {
+                  path: 'education',
+                  component: Education
+                },
+                {
+                    path: 'experience',
+                    component: Experience
                 },
                 {
                     path: '',

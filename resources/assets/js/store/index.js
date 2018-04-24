@@ -25,14 +25,34 @@ export const store = new Vuex.Store({
        },
        clearError(state) {
            state.error = null
+       },
+       addSkill(state, payload) {
+           state.user.skills.push(payload)
+       },
+       removeSkill(state, payload) {
+           state.user.skills.splice(payload, 1)
        }
    },
    actions: {
+       //skills
+       addSkill({commit}, payload){
+           const token = localStorage.getItem('token');
+         axios.post('/api/skills?token=' + token, payload)
+             .then(response => commit('addSkill', response.data.skill))
+       },
+       removeSkill({commit}, payload) {
+           const token = localStorage.getItem('token')
+           axios.delete('/api/skills/' + payload.id + '?token=' + token)
+               .then(() => commit('removeSkill', payload))
+       },
+       //user actions
        getUsers({commit}) {
            axios.get('/api/users')
                .then(response => commit('loadUsers', response.data))
        },
        updateUser({commit}, payload) {
+           commit('clearError')
+           commit('setLoading', true)
            const token = localStorage.getItem('token')
            axios.post('/api/user?token=' + token , payload,
                {
@@ -41,9 +61,14 @@ export const store = new Vuex.Store({
                }
            })
                .then(response => {
-                   console.log("the response: " + JSON.stringify(response));
+                   commit('setLoading', false)
+                   console.log('success')
                    commit('setUser', response.data.user)
                })
+               .catch(errors => {
+               commit('setLoading', false)
+               commit('setError', errors.response.data.errors)
+           })
        },
        autoSignIn({commit}) {
            const token = localStorage.getItem('token')
@@ -75,6 +100,7 @@ export const store = new Vuex.Store({
            axios.post('/api/signin', payload)
                .then(response => {
                    commit('setLoading', false)
+                   console.log(response.data.user)
                    commit('setUser',response.data.user)
                    const token = response.data.token
                    localStorage.setItem('token', token)
@@ -89,6 +115,8 @@ export const store = new Vuex.Store({
            localStorage.setItem('token', null)
            commit('setUser', null)
        },
+
+       //general actions
        clearError({commit}) {
            commit('clearError')
        }

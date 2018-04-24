@@ -20,11 +20,13 @@
                     ></v-text-field>
                     <v-text-field multi-line
                                   label="Your bio"
-                                  hint="This will be shown on your profile for other users."
+                                  hint="This will be shown on your profile visible to other users."
                                   v-model="bio">
                     </v-text-field>
                     <input type="file" ref="profileImage">
-                    <v-btn type="submit">Update</v-btn>
+                    <v-btn  :loading="this.$store.getters.loading"
+                            :disabled="this.$store.getters.loading || !validate"
+                            type="submit">Update</v-btn>
                 </v-form>
             </v-container>
         </v-card-text>
@@ -49,6 +51,9 @@
         computed: {
             error() {
                 return this.$store.getters.error
+            },
+            validate() {
+                return this.name !== '' && this.email !== '' && this.bio !== ''
             }
         },
         methods: {
@@ -63,7 +68,7 @@
                 formData.append('profile_image', this.$refs.profileImage.files[0])
                 console.log(formData);
                 this.$store.dispatch('updateUser', formData)
-                this.$emit('updated');
+                this.$emit('updated')
             },
             onDismissed() {
                 this.$store.dispatch('clearError')

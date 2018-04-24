@@ -22,3 +22,6 @@ Route::post('/signin', 'UserController@signin');
 Route::get('/users', 'UserController@index');
 Route::get('/user', 'UserController@user')->middleware('auth.jwt');
 Route::post('/user', 'UserController@update')->middleware('auth.jwt');
+
+Route::post('/skills', 'SkillController@store')->middleware('auth.jwt');
+Route::delete('/skills/{skill}', 'SkillController@destroy')->middleware('auth.jwt');

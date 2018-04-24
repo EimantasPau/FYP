@@ -112,6 +112,7 @@ class UserController extends Controller
         $user->email = $request->input('email');
         $user->bio = $request->input('bio');
         $user->save();
+
         if($request->file('profile_image')){
             if($user->file) {
                 Storage::delete($user->file->file_path);
@@ -120,7 +121,6 @@ class UserController extends Controller
             $file = $request->file('profile_image');
             $ext = $file->getClientOriginalExtension();
             $fileName = md5(time()). ".$ext";
-//            $path = Storage::putFile($fileName, $file, 'public');
             $path = $file->storePublicly('avatars');
             $path = "/storage/" . $path;
             $file = new File();
@@ -131,9 +131,6 @@ class UserController extends Controller
         }
 
         $user = User::findOrFail($userID);
-
-
-
 
         return response()->json([
             'message' => 'Successfully updated user!',

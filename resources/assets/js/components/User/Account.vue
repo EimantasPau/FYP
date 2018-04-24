@@ -1,5 +1,5 @@
 <template>
-    <v-container fill-height grid-list-md fluid>
+    <v-container fill-height grid-list-md>
         <v-layout row wrap>
             <v-flex xs12 md3>
                 <v-navigation-drawer permanent width="100%">
@@ -14,16 +14,36 @@
                     </v-toolbar>
                     <v-divider></v-divider>
                     <v-list class="pt-0">
-                        <v-list-tile v-for="item in accountMenu"
-                                     :key="item.title"
-                                     router :to="item.link" exact active-class="light-blue accent-4 white--text">
-                            <v-list-tile-action>
-                                <v-icon>{{ item.icon }}</v-icon>
-                            </v-list-tile-action>
-                            <v-list-tile-content>
-                                <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-                            </v-list-tile-content>
-                        </v-list-tile>
+                        <v-list-group sub-group>
+                            <v-list-tile slot="activator">
+                                <v-list-tile-title>Personal details</v-list-tile-title>
+                            </v-list-tile>
+                                <v-list-tile v-for="item in detailsMenu"
+                                             :key="item.title"
+                                             router :to="item.link" exact active-class="light-blue accent-4 white--text">
+                                    <v-list-tile-action>
+                                        <v-icon>{{ item.icon }}</v-icon>
+                                    </v-list-tile-action>
+                                    <v-list-tile-content>
+                                        <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+                                    </v-list-tile-content>
+                                </v-list-tile>
+                        </v-list-group>
+                        <v-list-group sub-group>
+                            <v-list-tile slot="activator">
+                                <v-list-tile-title>Courses</v-list-tile-title>
+                            </v-list-tile>
+                            <v-list-tile v-for="item in coursesMenu"
+                                         :key="item.title"
+                                         router :to="item.link" exact active-class="light-blue accent-4 white--text">
+                                <v-list-tile-action>
+                                    <v-icon>{{ item.icon }}</v-icon>
+                                </v-list-tile-action>
+                                <v-list-tile-content>
+                                    <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+                                </v-list-tile-content>
+                            </v-list-tile>
+                        </v-list-group>
                     </v-list>
                 </v-navigation-drawer>
             </v-flex>
@@ -53,14 +73,31 @@
         name: "Account",
         data() {
             return {
-                accountMenu: [
+                detailsMenu: [
                     {
-                        title: 'Personal information',
-                        link: '/account'
+                        title: 'Basic information',
+                        link: '/account',
+                        icon: 'person_outline'
                     },
+                    {
+                        title: 'Education',
+                        link: '/account/education',
+                        icon: 'library_books'
+                    },
+                    {
+                        title: 'Experience',
+                        link: '/account/experience',
+                        icon: 'work'
+                    }
+                ],
+                coursesMenu: [
                     {
                         title: 'My courses',
                         link: '/account/courses'
+                    },
+                    {
+                        title: 'Create new course',
+                        link: '/account/cour'
                     },
                 ]
             }

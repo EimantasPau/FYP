@@ -9,7 +9,7 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 class User extends Authenticatable implements JWTSubject
 {
     use Notifiable;
-    protected $with = ['file'];
+    protected $with = ['file', 'skills'];
     /**
      * The attributes that are mass assignable.
      *
@@ -27,6 +27,10 @@ class User extends Authenticatable implements JWTSubject
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function skills() {
+        return $this->hasMany(Skill::class);
+    }
 
     public function file() {
         return $this->morphOne('App\File', 'fileable');
