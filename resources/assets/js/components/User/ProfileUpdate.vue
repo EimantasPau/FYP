@@ -28,7 +28,7 @@
                         <v-btn  :loading="this.$store.getters.loading"
                                 :disabled="this.$store.getters.loading || !validate"
                                @click="onUpdate">Update</v-btn>
-                        <v-btn @click="onCancel">Cancel</v-btn>
+                        <v-btn color="error" @click="onCancel">Cancel</v-btn>
                     </v-layout>
                 </v-form>
             </v-container>

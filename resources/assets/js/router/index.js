@@ -9,11 +9,17 @@ import Signin from '../components/Signin'
 import Account from '../components/User/Account'
 import Courses from '../components/User/Courses'
 import Profile from '../components/User/Profile'
-import Experience from '../components/User/Experience'
+
+//education components
 import Education from '../components/User/Education/Education'
 import EducationCreate from '../components/User/Education/EducationCreate'
 import EducationIndex from '../components/User/Education/EducationIndex'
 import EducationUpdate from '../components/User/Education/EducationUpdate'
+//experience components
+import Experience from '../components/User/Experience/Experience'
+import ExperienceCreate from '../components/User/Experience/ExperienceCreate'
+import ExperienceIndex from '../components/User/Experience/ExperienceIndex'
+import ExperienceUpdate from '../components/User/Experience/ExperienceUpdate'
 
 import ExampleComponent from '../components/ExampleComponent'
 import NotFoundComponent from '../components/NotFoundComponent'
@@ -68,7 +74,22 @@ export const router = new Router({
                 },
                 {
                     path: 'experience',
-                    component: Experience
+                    component: Experience,
+                    children: [
+                        {
+                            path: 'create',
+                            component: ExperienceCreate
+                        },
+                        {
+                            path: ':id',
+                            component: ExperienceUpdate,
+                            props: true
+                        },
+                        {
+                            path: '',
+                            component: ExperienceIndex
+                        },
+                    ]
                 },
                 {
                     path: '',

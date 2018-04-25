@@ -16,7 +16,9 @@ export const store = new Vuex.Store({
            signUp: null,
            basicInfo: null,
            educationCreate: null,
-           educationUpdate: null
+           educationUpdate: null,
+           experienceCreate: null,
+           experienceUpdate: null
        },
        //for modals, to deal with not closing when errors are present
        isDisplaying: {
@@ -61,7 +63,19 @@ export const store = new Vuex.Store({
        deleteEducation(state, payload) {
            var index = state.user.education.indexOf(payload)
            state.user.education.splice(index, 1)
-       }
+       },
+       addExperience(state, payload) {
+           state.user.experience.push(payload)
+       },
+       updateExperience(state, payload) {
+           let oldExperience = state.user.experience.find(experience => experience.id == payload.id)
+           let oldIndex = state.user.experience.indexOf(oldExperience)
+           state.user.experience[oldIndex] = payload
+       },
+       deleteExperience(state, payload) {
+           var index = state.user.experience.indexOf(payload)
+           state.user.experience.splice(index, 1)
+       },
    },
    actions: {
        //skills
@@ -74,6 +88,45 @@ export const store = new Vuex.Store({
            const token = localStorage.getItem('token')
            axios.delete('/api/skills/' + payload.id + '?token=' + token)
                .then(() => commit('removeSkill', payload))
+       },
+
+       //experience actions
+       addExperience({commit}, payload) {
+           // commit('clearError', 'educationForm')
+           const token = localStorage.getItem('token')
+           axios.post('/api/experience?token=' + token, payload)
+               .then(response => {
+                   console.log('success')
+                   commit('addExperience', response.data.experience)
+                   router.push('/account/experience')
+               })
+               .catch(errors => {
+                   let payload = {
+                       form: 'experienceCreate',
+                       errors : errors.response.data.errors
+                   }
+                   commit('setError', payload)
+               })
+       },
+       deleteExperience({commit}, payload) {
+           const token = localStorage.getItem('token')
+           axios.delete('/api/experience/' + payload.id +  '?token=' + token, payload)
+               .then(() => commit('deleteExperience', payload))
+       },
+       updateExperience({commit}, payload) {
+           const token = localStorage.getItem('token')
+           axios.put('/api/experience/' + payload.id +  '?token=' + token, payload)
+               .then(response => {
+                   commit('updateExperience', response.data.experience)
+                   router.push('/account/experience')
+               })
+               .catch(errors => {
+                   let payload = {
+                       form: 'experienceUpdate',
+                       errors : errors.response.data.errors
+                   }
+                   commit('setError', payload)
+               })
        },
 
        //education actions

@@ -1,6 +1,6 @@
 <template>
     <v-container>
-        <h1 class="display-1 grey--text text--darken-1"> <v-btn fab small color="success" router to="/account/education"><v-icon medium color="white">arrow_back</v-icon ></v-btn> Add education</h1>
+        <h1 class="display-1 grey--text text--darken-1"> <v-btn fab small color="primary" router to="/account/experience"><v-icon medium color="white">arrow_back</v-icon ></v-btn> Update experience</h1>
         <transition name="fade" mode="out-in">
             <app-alert v-if="errors" @dismissed="onDismissed" :text="errors"></app-alert>
         </transition>
@@ -8,7 +8,7 @@
             <v-layout row wrap>
                 <v-flex xs12 md6>
                     <v-text-field
-                            label="Name"
+                            label="Position"
                             v-model="name"
                     ></v-text-field>
                 </v-flex>
@@ -16,18 +16,19 @@
             <v-layout row wrap>
                 <v-flex xs12 md6>
                     <v-text-field
-                            label="Institution"
+                            label="Company or institution name"
                             v-model="institution"
                     ></v-text-field>
                 </v-flex>
             </v-layout>
             <v-layout row wrap>
-               <v-flex xs12 md6>
-                   <v-text-field
-                           label="Classification"
-                           v-model="classification"
-                   ></v-text-field>
-               </v-flex>
+                <v-flex xs12 md6>
+                    <v-text-field
+                            label="What did you do there?"
+                            v-model="description"
+                            multi-line
+                    ></v-text-field>
+                </v-flex>
             </v-layout>
             <v-layout row wrap>
                 <v-flex xs12 md6>
@@ -90,41 +91,56 @@
 
 <script>
     export default {
-        name: "EducationCreate",
+        name: "ExperienceUpdate",
+        props: ['id'],
         data() {
             return {
                 name: '',
-                classification: '',
+                description: '',
                 institution: '',
-                startingModal: false,
-                finishingModal: false,
                 startingDate: '',
                 finishingDate: '',
+                startingModal: false,
+                finishingModal: false
             }
+        },
+        created() {
+            this.name = this.experience.name
+            this.description = this.experience.description
+            this.institution = this.experience.institution
+            this.startingDate =this.experience.started_on
+            this.finishingDate =this.experience.finished_on
         },
         methods: {
             onSubmit() {
                 let formData = {
-                    name : this.name,
-                    classification : this.classification,
+                    id: this.id,
+                    name: this.name,
+                    description : this.description,
                     institution: this.institution,
                     started_on: this.startingDate,
                     finished_on: this.finishingDate
                 }
-                this.$store.dispatch('addEducation', formData)
+                this.$store.dispatch('updateExperience', formData)
 
             },
             onDismissed() {
-                this.$store.dispatch('clearError','educationCreate')
+                this.$store.dispatch('clearError','experienceUpdate')
             },
             onCancel() {
-                this.$store.dispatch('clearError','educationCreate')
-                this.$router.push('/account/education')
+                this.$store.dispatch('clearError','experienceUpdate')
+                this.$router.push('/account/experience')
             }
         },
         computed: {
             errors() {
-                return this.$store.getters.errors.educationCreate;
+                return this.$store.getters.errors.experienceUpdate;
+            },
+            experience() {
+                return this.$store.getters.user.experience.find(experience => {
+                    return experience.id == this.id;
+                })
+
             }
         }
     }

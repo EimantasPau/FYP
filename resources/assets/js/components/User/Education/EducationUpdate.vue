@@ -76,7 +76,7 @@
                         <v-date-picker color="green lighten-3" v-model="finishingDate" scrollable>
                             <v-spacer></v-spacer>
                             <v-btn flat color="primary" @click="finishingModal = false">Cancel</v-btn>
-                            <v-btn flat color="primary" @click="$refs.finishingModal.save(finishingDate)">OK</v-btn>
+                            <v-btn flat color="error" @click="$refs.finishingModal.save(finishingDate)">OK</v-btn>
                         </v-date-picker>
                     </v-dialog>
                 </v-flex>
@@ -87,7 +87,6 @@
                            to="/account/education"
                            color="error">Cancel</v-btn>
                 </v-flex>
-            </v-layout>
         </v-form>
     </v-container>
 </template>
