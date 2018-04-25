@@ -5,7 +5,7 @@
                   <v-card>
                       <v-card-text>
                           <transition name="fade" mode="out-in">
-                              <app-alert v-if="error" @dismissed="onDismissed" :text="error"></app-alert>
+                              <app-alert v-if="errors" @dismissed="onDismissed" :text="errors"></app-alert>
                           </transition>
                           <v-container>
                               <h3 class="headline mb-0">Sign up</h3>
@@ -52,16 +52,15 @@
                 name: '',
                 email: '',
                 password: '',
-                bio: '',
-                formErrors: {}
+                bio: ''
             }
         },
         computed: {
             user() {
                 return this.$store.getters.user
             },
-            error() {
-                return this.$store.getters.error
+            errors() {
+                return this.$store.getters.errors['signUp']
             }
         },
         methods: {
@@ -79,7 +78,7 @@
                 this.$store.dispatch('signUserUp', formData)
             },
             onDismissed() {
-                this.$store.dispatch('clearError')
+                this.$store.dispatch('clearError', 'signUp')
             }
         },
         watch: {

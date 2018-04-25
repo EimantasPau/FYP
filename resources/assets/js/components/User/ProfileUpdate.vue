@@ -2,11 +2,11 @@
     <v-card v-if="user">
         <v-card-text>
             <transition name="fade" mode="out-in">
-                <app-alert v-if="error" @dismissed="onDismissed" :text="error"></app-alert>
+                <app-alert v-if="errors" @dismissed="onDismissed" :text="errors"></app-alert>
             </transition>
             <v-container>
                 <h3 class="headline mb-0">Update details</h3>
-                <v-form @submit.prevent="onUpdate">
+                <v-form>
                     <v-text-field
                             label="Name"
                             v-model="name"
@@ -23,10 +23,13 @@
                                   hint="This will be shown on your profile visible to other users."
                                   v-model="bio">
                     </v-text-field>
-                    <input type="file" ref="profileImage">
-                    <v-btn  :loading="this.$store.getters.loading"
-                            :disabled="this.$store.getters.loading || !validate"
-                            type="submit">Update</v-btn>
+                    <input class="d-block" type="file" ref="profileImage">
+                    <v-layout justify-end>
+                        <v-btn  :loading="this.$store.getters.loading"
+                                :disabled="this.$store.getters.loading || !validate"
+                               @click="onUpdate">Update</v-btn>
+                        <v-btn @click="onCancel">Cancel</v-btn>
+                    </v-layout>
                 </v-form>
             </v-container>
         </v-card-text>
@@ -47,10 +50,9 @@
         props: {
             user: Object
         },
-
         computed: {
-            error() {
-                return this.$store.getters.error
+            errors() {
+                return this.$store.getters.errors.basicInfo
             },
             validate() {
                 return this.name !== '' && this.email !== '' && this.bio !== ''
@@ -66,12 +68,18 @@
                 formData.append('email', this.email)
                 formData.append('bio', this.bio)
                 formData.append('profile_image', this.$refs.profileImage.files[0])
-                console.log(formData);
                 this.$store.dispatch('updateUser', formData)
-                this.$emit('updated')
             },
             onDismissed() {
-                this.$store.dispatch('clearError')
+                this.$store.dispatch('clearError', 'basicInfo')
+            },
+            onCancel() {
+                this.$emit('canceled')
+                let payload = {
+                    form: 'basicInfo',
+                    isDisplaying: false
+                }
+                this.$store.dispatch('setDisplaying', payload)
             }
         }
     }

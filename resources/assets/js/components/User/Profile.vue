@@ -1,13 +1,13 @@
 <template>
    <v-content>
-       <v-container v-if="this.$store.getters.user">
+       <v-container px-0 v-if="this.$store.getters.user">
            <v-divider my-3></v-divider>
            <v-layout row>
                <v-flex>
                    <h1 class="text-xs-center py-4 grey--text text--darken-1">{{profileUser.name}}'s profile
-                       <v-dialog v-model="updateDialog" max-width="500px">
+                       <v-dialog persistent v-model="updateDialog" max-width="500px">
                            <v-btn fab small color="light-blue accent-4" slot="activator"><v-icon color="white">edit</v-icon></v-btn>
-                           <profile-update :user="profileUser" @updated="updateDialog = false"></profile-update>
+                           <profile-update :user="profileUser" @canceled="updateDialog = false" @updated="canClose"></profile-update>
                        </v-dialog>
                    </h1>
                </v-flex>
@@ -47,7 +47,7 @@
         name: "Profile",
         data() {
           return {
-              updateDialog: false,
+              updateDialog: this.$store.getters.isDisplaying.updateDialog,
           }
         },
         computed: {
@@ -56,6 +56,14 @@
             },
             profileImage() {
                 return this.$store.getters.user.file ? this.profileUser.file.file_path : '/images/default-profile.png'
+            }
+        },
+        methods: {
+            canClose() {
+                console.log('can close')
+                if(!this.$store.getters.errors.basicInfo){
+                    this.updateDialog = false;
+                }
             }
         },
         components: {

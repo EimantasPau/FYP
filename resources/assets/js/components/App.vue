@@ -1,6 +1,40 @@
 <template>
     <v-app light>
+        <v-navigation-drawer temporary fixed v-model="sideNav">
+            <v-toolbar flat>
+                <v-list class="blue-grey lighten-5">
+                    <v-list-tile>
+                        <v-list-tile-title class="title">
+                            Menu
+                        </v-list-tile-title>
+                    </v-list-tile>
+                </v-list>
+            </v-toolbar>
+            <v-list>
+                <!--<v-list-tile v-for="item in menuItems"-->
+                             <!--:key="item.title"-->
+                             <!--flat-->
+                             <!--router-->
+                             <!--:to="item.link">-->
+                    <!--<v-list-tile-action>-->
+                        <!--<v-icon>home</v-icon>-->
+                    <!--</v-list-tile-action>-->
+                    <!--<v-list-tile-content>-->
+                    <!--{{item.title}}-->
+                    <!--</v-list-tile-content>-->
+                <!--</v-list-tile>-->
+                <v-list-tile v-for="item in menuItems" :key="item.title" exact router :to="item.link">
+                    <v-list-tile-action>
+                        <v-icon>{{ item.icon }}</v-icon>
+                    </v-list-tile-action>
+                    <v-list-tile-content>
+                        <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+                    </v-list-tile-content>
+                </v-list-tile>
+            </v-list>
+        </v-navigation-drawer>
         <v-toolbar class="white">
+            <v-toolbar-side-icon class="hidden-md-and-up" @click="sideNav = !sideNav"></v-toolbar-side-icon>
             <v-toolbar-title>Educational platform</v-toolbar-title>
             <v-spacer></v-spacer>
             <v-toolbar-items class="hidden-sm-and-down">
@@ -29,15 +63,10 @@
                     {{ item.title }}
                 </v-btn>
                 <v-flex xs12 py-3 text-xs-center white--text>
-                    &copy;2018 — <strong>Education Plus</strong>
+                    &copy;{{new Date().getFullYear()}} — <strong>Education Plus</strong>
                 </v-flex>
             </v-layout>
         </v-footer>
-        <!--<v-footer class="pa-3">-->
-            <!--<v-flex text-xs-center>-->
-                <!--<div>&copy; {{ new Date().getFullYear() }}</div>-->
-            <!--</v-flex>-->
-        <!--</v-footer>-->
     </v-app>
 </template>
 
@@ -46,7 +75,7 @@
         name: "app",
         data() {
             return {
-
+                sideNav: false
             }
         },
         computed: {
@@ -60,8 +89,8 @@
                 if(this.userIsAuthenticated) {
                     menuItems = [
                         { title: 'Home', link: '/'},
-                        { title: 'Browse teachers', link: ''},
-                        { title: 'View courses', link: ''},
+                        { title: 'Search tutors', link: '/hgh'},
+                        { title: 'View courses', link: '/hghgh'},
                         { title: 'My account', link: '/account'},
                     ]
                 }

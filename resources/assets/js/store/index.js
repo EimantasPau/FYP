@@ -2,13 +2,27 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 Vue.use(Vuex)
+import {router} from "../router/index"
+
 
 export const store = new Vuex.Store({
    state: {
        user: null,
        users: [],
        loading: false,
-       error: null
+       //errors from different forms
+       errors: {
+           signIn: null,
+           signUp: null,
+           basicInfo: null,
+           educationCreate: null,
+           educationUpdate: null
+       },
+       //for modals, to deal with not closing when errors are present
+       isDisplaying: {
+           basicInfo: false
+       }
+
    },
    mutations: {
        loadUsers(state, payload) {
@@ -21,10 +35,13 @@ export const store = new Vuex.Store({
            state.loading = payload
        },
        setError(state, payload) {
-            state.error = payload
+           state.errors[payload.form] = payload.errors
        },
-       clearError(state) {
-           state.error = null
+       setDisplaying(state, payload) {
+           state.isDisplaying[payload.form] = payload.isDisplaying
+       },
+       clearError(state, payload) {
+           state.errors[payload] = null
        },
        addSkill(state, payload) {
            state.user.skills.push(payload)
@@ -32,6 +49,18 @@ export const store = new Vuex.Store({
        removeSkill(state, payload) {
            var index = state.user.skills.indexOf(payload)
            state.user.skills.splice(index, 1)
+       },
+       addEducation(state, payload) {
+           state.user.education.push(payload)
+       },
+       updateEducation(state, payload) {
+           let oldEducation = state.user.education.find(education => education.id == payload.id)
+           let oldIndex = state.user.education.indexOf(oldEducation)
+           state.user.education[oldIndex] = payload
+       },
+       deleteEducation(state, payload) {
+           var index = state.user.education.indexOf(payload)
+           state.user.education.splice(index, 1)
        }
    },
    actions: {
@@ -46,16 +75,55 @@ export const store = new Vuex.Store({
            axios.delete('/api/skills/' + payload.id + '?token=' + token)
                .then(() => commit('removeSkill', payload))
        },
+
+       //education actions
+       addEducation({commit}, payload) {
+           // commit('clearError', 'educationForm')
+           const token = localStorage.getItem('token')
+           axios.post('/api/education?token=' + token, payload)
+               .then(response => {
+                   console.log('success')
+                   commit('addEducation', response.data.education)
+                   router.push('/account/education')
+               })
+               .catch(errors => {
+                   let payload = {
+                       form: 'educationCreate',
+                       errors : errors.response.data.errors
+                   }
+                   commit('setError', payload)
+               })
+       },
+       deleteEducation({commit}, payload) {
+           const token = localStorage.getItem('token')
+           axios.delete('/api/education/' + payload.id +  '?token=' + token, payload)
+               .then(() => commit('deleteEducation', payload))
+       },
+       updateEducation({commit}, payload) {
+           const token = localStorage.getItem('token')
+           axios.put('/api/education/' + payload.id +  '?token=' + token, payload)
+               .then(response => {
+                   commit('updateEducation', response.data.education)
+                   router.push('/account/education')
+               })
+               .catch(errors => {
+                   let payload = {
+                       form: 'educationUpdate',
+                       errors : errors.response.data.errors
+                   }
+                   commit('setError', payload)
+               })
+       },
        //user actions
        getUsers({commit}) {
            axios.get('/api/users')
                .then(response => commit('loadUsers', response.data))
        },
        updateUser({commit}, payload) {
-           commit('clearError')
+           commit('clearError', 'basicInfo')
            commit('setLoading', true)
            const token = localStorage.getItem('token')
-           axios.post('/api/user?token=' + token , payload,
+           axios.post('/api/user?token=' + token, payload,
                {
                headers: {
                    'Content-Type': 'multipart/form-data'
@@ -63,12 +131,16 @@ export const store = new Vuex.Store({
            })
                .then(response => {
                    commit('setLoading', false)
-                   console.log('success')
                    commit('setUser', response.data.user)
+                   commit('setDisplaying', false)
                })
                .catch(errors => {
-               commit('setLoading', false)
-               commit('setError', errors.response.data.errors)
+                   commit('setLoading', false)
+                   let payload = {
+                       form: 'basicInfo',
+                       errors: errors.response.data.errors
+                   }
+                   commit('setError', payload)
            })
        },
        autoSignIn({commit}) {
@@ -82,22 +154,27 @@ export const store = new Vuex.Store({
        },
        signUserUp({commit, dispatch}, payload) {
            commit('setLoading', true)
-           commit('clearError')
+           commit('clearError', 'signUp')
            axios.post('/api/signup', payload)
                .then(response => {
                    commit('setLoading', false)
                    commit('setUser',response.data.user)
+                   dispatch('signUserIn', payload)
                })
                .catch(errors => {
                    commit('setLoading', false)
-                   commit('setError', errors.response.data.errors)
-               })
 
-           dispatch('signUserIn', payload)
+                   let payload = {
+                       form: 'signUp',
+                       errors: errors.response.data.errors
+                   }
+
+                   commit('setError', payload)
+               })
        },
        signUserIn({commit}, payload) {
            commit('setLoading', true)
-           commit('clearError')
+           commit('clearError', 'signIn')
            axios.post('/api/signin', payload)
                .then(response => {
                    commit('setLoading', false)
@@ -109,7 +186,11 @@ export const store = new Vuex.Store({
                })
                .catch(errors => {
                    commit('setLoading', false)
-                   commit('setError', errors.response.data.errors)
+                   let payload = {
+                       form: 'signIn',
+                       errors: errors.response.data.errors
+                   }
+                   commit('setError', payload)
                })
        },
        logOut({commit}) {
@@ -118,9 +199,13 @@ export const store = new Vuex.Store({
        },
 
        //general actions
-       clearError({commit}) {
-           commit('clearError')
+       clearError({commit}, payload) {
+           commit('clearError', payload)
+       },
+       setDisplaying({commit}, payload) {
+           commit('setDisplaying', payload)
        }
+
    },
    getters: {
        users(state) {
@@ -129,11 +214,14 @@ export const store = new Vuex.Store({
        user(state) {
            return state.user
        },
-       error(state) {
-           return state.error
+       errors(state) {
+           return state.errors
        },
        loading(state) {
            return state.loading
+       },
+       isDisplaying(state) {
+           return state.isDisplaying
        }
    }
 });

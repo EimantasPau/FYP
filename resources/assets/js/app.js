@@ -17,7 +17,7 @@ Vue.use(VueRouter)
 import AlertComponent from './components/Shared/Alert'
 Vue.component('app-alert', AlertComponent)
 import { store } from './store'
-import router from './router'
+import {router} from './router'
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

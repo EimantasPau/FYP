@@ -16,7 +16,7 @@ class SkillController extends Controller
      */
     public function index()
     {
-        $skills = Skill::whereUserId(auth()->id());
+        $skills = Skill::whereUserId(auth()->id())->get();
         return response()->json(['skills'=> $skills]);
     }
 

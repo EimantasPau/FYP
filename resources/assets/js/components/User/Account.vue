@@ -58,7 +58,6 @@
                                                     mode="out-in">
                                             <router-view></router-view>
                                         </transition>
-                                        <!--<component v-bind:is="currentPage"></component>-->
                                     </v-flex>
                                 </v-layout>
                             </v-container>

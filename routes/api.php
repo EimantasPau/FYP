@@ -25,3 +25,8 @@ Route::post('/user', 'UserController@update')->middleware('auth.jwt');
 
 Route::post('/skills', 'SkillController@store')->middleware('auth.jwt');
 Route::delete('/skills/{skill}', 'SkillController@destroy')->middleware('auth.jwt');
+
+Route::post('/education', 'EducationController@store')->middleware('auth.jwt');
+Route::get('/education', 'EducationController@index')->middleware('auth.jwt');
+Route::delete('/education/{education}', 'EducationController@destroy')->middleware('auth.jwt');
+Route::put('/education/{education}', 'EducationController@update')->middleware('auth.jwt');

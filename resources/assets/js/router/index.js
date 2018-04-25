@@ -10,7 +10,10 @@ import Account from '../components/User/Account'
 import Courses from '../components/User/Courses'
 import Profile from '../components/User/Profile'
 import Experience from '../components/User/Experience'
-import Education from '../components/User/Education'
+import Education from '../components/User/Education/Education'
+import EducationCreate from '../components/User/Education/EducationCreate'
+import EducationIndex from '../components/User/Education/EducationIndex'
+import EducationUpdate from '../components/User/Education/EducationUpdate'
 
 import ExampleComponent from '../components/ExampleComponent'
 import NotFoundComponent from '../components/NotFoundComponent'
@@ -19,7 +22,7 @@ import AuthGuard from './auth-guard'
 
 Vue.use(Router)
 
-export default new Router({
+export const router = new Router({
     routes: [
         {
             path: '/users',
@@ -46,7 +49,22 @@ export default new Router({
                 },
                 {
                   path: 'education',
-                  component: Education
+                  component: Education,
+                  children: [
+                      {
+                          path: 'create',
+                          component: EducationCreate
+                      },
+                      {
+                          path: ':id',
+                          component: EducationUpdate,
+                          props: true
+                      },
+                      {
+                          path: '',
+                          component: EducationIndex
+                      },
+                  ],
                 },
                 {
                     path: 'experience',
