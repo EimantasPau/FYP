@@ -35,3 +35,9 @@ Route::post('/experience', 'ExperienceController@store')->middleware('auth.jwt')
 Route::get('/experience', 'ExperienceController@index')->middleware('auth.jwt');
 Route::delete('/experience/{experience}', 'ExperienceController@destroy')->middleware('auth.jwt');
 Route::put('/experience/{experience}', 'ExperienceController@update')->middleware('auth.jwt');
+
+Route::post('/courses', 'CourseController@store')->middleware('auth.jwt');
+Route::delete('/courses/{course}', 'CourseController@destroy')->middleware('auth.jwt');
+Route::put('/courses/{course}', 'CourseController@update')->middleware('auth.jwt');
+
+Route::get('/coursetypes', 'CourseTypeController@index')->middleware('auth.jwt');

@@ -8,7 +8,7 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
-
+import { VueEditor } from 'vue2-editor'
 import Vuetify from 'vuetify'
 Vue.use(Vuetify)
 import VueRouter from 'vue-router'
@@ -16,6 +16,7 @@ Vue.use(VueRouter)
 
 import AlertComponent from './components/Shared/Alert'
 Vue.component('app-alert', AlertComponent)
+Vue.component('vue-editor', VueEditor)
 import { store } from './store'
 import {router} from './router'
 

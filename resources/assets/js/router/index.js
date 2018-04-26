@@ -7,7 +7,7 @@ import Signup from '../components/Signup'
 import Signin from '../components/Signin'
 //account components
 import Account from '../components/User/Account'
-import Courses from '../components/User/Courses'
+
 import Profile from '../components/User/Profile'
 
 //education components
@@ -25,7 +25,11 @@ import ExampleComponent from '../components/ExampleComponent'
 import NotFoundComponent from '../components/NotFoundComponent'
 import PrivacyPolicy from '../components/PrivacyPolicy'
 import AuthGuard from './auth-guard'
-
+//courses components
+import Courses from '../components/User/Courses/Courses'
+import CoursesCreate from '../components/User/Courses/CoursesCreate'
+import CoursesIndex from '../components/User/Courses/CoursesIndex'
+import CoursesUpdate from '../components/User/Courses/CoursesUpdate'
 Vue.use(Router)
 
 export const router = new Router({
@@ -51,7 +55,22 @@ export const router = new Router({
             children: [
                 {
                     path: 'courses',
-                    component: Courses
+                    component: Courses,
+                    children: [
+                        {
+                            path: 'create',
+                            component: CoursesCreate
+                        },
+                        {
+                            path: ':id',
+                            component: CoursesUpdate,
+                            props: true
+                        },
+                        {
+                            path: '',
+                            component: CoursesIndex
+                        }
+                    ]
                 },
                 {
                   path: 'education',

@@ -18,7 +18,9 @@ export const store = new Vuex.Store({
            educationCreate: null,
            educationUpdate: null,
            experienceCreate: null,
-           experienceUpdate: null
+           experienceUpdate: null,
+           courseCreate: null,
+           courseUpdate: null
        },
        //for modals, to deal with not closing when errors are present
        isDisplaying: {
@@ -76,8 +78,59 @@ export const store = new Vuex.Store({
            var index = state.user.experience.indexOf(payload)
            state.user.experience.splice(index, 1)
        },
+       addCourse(state, payload) {
+           state.user.owned_courses.push(payload)
+       },
+       updateCourse(state, payload) {
+           let oldCourse = state.user.owned_courses.find(course => course.id == payload.id)
+           let oldIndex = state.user.owned_courses.indexOf(oldCourse)
+           state.user.owned_courses[oldIndex] = payload
+       },
+       deleteCourse(state, payload) {
+           var index = state.user.owned_courses.indexOf(payload)
+           state.user.owned_courses.splice(index, 1)
+       },
    },
    actions: {
+       //courses
+       //experience actions
+       addCourse({commit}, payload) {
+           commit('clearError', 'courseCreate')
+           const token = localStorage.getItem('token')
+           axios.post('/api/courses?token=' + token, payload)
+               .then(response => {
+                   console.log(JSON.stringify(response.data.course))
+                   commit('addCourse', response.data.course)
+                   router.push('/account/courses')
+               })
+               .catch(errors => {
+                   let payload = {
+                       form: 'courseCreate',
+                       errors : errors.response.data.errors
+                   }
+                   commit('setError', payload)
+               })
+       },
+       deleteCourse({commit}, payload) {
+           const token = localStorage.getItem('token')
+           axios.delete('/api/courses/' + payload.id +  '?token=' + token, payload)
+               .then(() => commit('deleteCourse', payload))
+       },
+       updateCourse({commit}, payload) {
+           const token = localStorage.getItem('token')
+           axios.put('/api/courses/' + payload.id +  '?token=' + token, payload)
+               .then(response => {
+                   commit('updateCourse', response.data.course)
+                   router.push('/account/courses')
+               })
+               .catch(errors => {
+                   let payload = {
+                       form: 'courseUpdate',
+                       errors : errors.response.data.errors
+                   }
+                   commit('setError', payload)
+               })
+       },
        //skills
        addSkill({commit}, payload){
            const token = localStorage.getItem('token');
@@ -92,7 +145,7 @@ export const store = new Vuex.Store({
 
        //experience actions
        addExperience({commit}, payload) {
-           // commit('clearError', 'educationForm')
+           commit('clearError', 'experienceCreate')
            const token = localStorage.getItem('token')
            axios.post('/api/experience?token=' + token, payload)
                .then(response => {

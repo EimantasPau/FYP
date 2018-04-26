@@ -98,7 +98,8 @@
                     },
                     {
                         title: 'Create new course',
-                        link: '/account/cour'
+                        link: '/account/courses/create',
+                        icon: 'add_circle_outline'
                     },
                 ]
             }
