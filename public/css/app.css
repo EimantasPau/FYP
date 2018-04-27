@@ -9,3 +9,22 @@
   opacity: 0;
 }
 
+#textPlaceholder ol {
+  padding-left: 0.5em;
+}
+
+#textPlaceholder ol li {
+  list-style-type: decimal;
+  /* or 'decimal-leading-zero', 'upper-alpha', 'lower-alpha'... */
+  list-style-position: outside;
+  /* or 'inside' */
+  margin-left: 1em;
+  /* gives 'room' for the numbers to appear in */
+}
+
+.list-text {
+  font-size: 18px;
+  font-weight: 300;
+  margin-top: 10px;
+}
+

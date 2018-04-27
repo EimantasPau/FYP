@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Course extends Model
 {
     protected $fillable = ['name', 'description', 'type_id'];
-    protected $with = ['tags', 'type', 'status'];
+    protected $with = ['tags', 'type', 'status', 'lessons'];
 
     public function tags() {
         return $this->hasMany(CourseTags::class);
@@ -18,5 +18,8 @@ class Course extends Model
 
     public function status() {
         return $this->belongsTo(CourseStatus::class);
+    }
+    public function lessons() {
+        return $this->hasMany(Lesson::class);
     }
 }

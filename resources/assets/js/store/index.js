@@ -24,7 +24,7 @@ export const store = new Vuex.Store({
        },
        //for modals, to deal with not closing when errors are present
        isDisplaying: {
-           basicInfo: false
+           updateDialog: false
        }
 
    },
@@ -63,7 +63,7 @@ export const store = new Vuex.Store({
            state.user.education[oldIndex] = payload
        },
        deleteEducation(state, payload) {
-           var index = state.user.education.indexOf(payload)
+           let index = state.user.education.indexOf(payload)
            state.user.education.splice(index, 1)
        },
        addExperience(state, payload) {
@@ -75,7 +75,7 @@ export const store = new Vuex.Store({
            state.user.experience[oldIndex] = payload
        },
        deleteExperience(state, payload) {
-           var index = state.user.experience.indexOf(payload)
+           let index = state.user.experience.indexOf(payload)
            state.user.experience.splice(index, 1)
        },
        addCourse(state, payload) {
@@ -87,7 +87,7 @@ export const store = new Vuex.Store({
            state.user.owned_courses[oldIndex] = payload
        },
        deleteCourse(state, payload) {
-           var index = state.user.owned_courses.indexOf(payload)
+           let index = state.user.owned_courses.indexOf(payload)
            state.user.owned_courses.splice(index, 1)
        },
    },
@@ -238,7 +238,11 @@ export const store = new Vuex.Store({
                .then(response => {
                    commit('setLoading', false)
                    commit('setUser', response.data.user)
-                   commit('setDisplaying', false)
+                   let payload = {
+                       form: 'updateDialog',
+                       isDisplaying: false
+                   }
+                   commit('setDisplaying', payload)
                })
                .catch(errors => {
                    commit('setLoading', false)
@@ -300,7 +304,7 @@ export const store = new Vuex.Store({
                })
        },
        logOut({commit}) {
-           localStorage.setItem('token', null)
+           localStorage.clear();
            commit('setUser', null)
        },
 

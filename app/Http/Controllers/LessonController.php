@@ -3,12 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Course;
-use App\CourseTags;
+use App\Lesson;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-
-class CourseController extends Controller
+class LessonController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +16,10 @@ class CourseController extends Controller
      */
     public function index()
     {
-        //
+        $lessons = Lesson::whereUserId(auth()->id());
+        return response()->json([
+            'lessons' => $lessons
+        ]);
     }
 
     /**
@@ -38,42 +40,33 @@ class CourseController extends Controller
      */
     public function store(Request $request)
     {
-        $messages = [
-            'type_id.required' => "Please select course type."
-        ];
         $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'description' => 'required',
-            'type_id' => 'required'
-        ], $messages);
+            'content' => 'required',
+            'course_id' => 'required'
+        ]);
         if ($validator->fails())  {
             return response()->json(['errors' => $validator->getMessageBag()->toArray()], 422);
         }
 
-        $course = new Course();
-        $course->name = $request->input('name');
-        $course->description = $request->input('description');
-        $course->type_id = $request->input('type_id');
+        $lesson = new Lesson();
+        $lesson->content = $request->input('content');
+        $lesson->name = $request->input('name');
+        $course_id = $request->input('course_id');
 
         $user = User::findOrFail(auth()->id());
-        $user->ownedCourses()->save($course);
+        $course = Course::findOrFail($course_id);
 
-        if($request->has('tags')){
-            $tags = $request->input('tags');
-            for($i = 0; $i< count($tags); $i++){
-                $tag = new CourseTags();
-                $tag->name = $tags[$i];
-                $tag->course_id = $course->id;
-                $course->tags()->save($tag);
-            }
+        if($course->user_id != auth()->id()){
+            return response()->json([
+                'message' => 'Unauthorized'
+            ]);
         }
-
-
-        $courseWithRelations = Course::findOrFail($course->id);
+        $course->lessons()->save($lesson);
 
         return response()->json([
-            'message' => 'Successfully created course!',
-            'course' => $courseWithRelations
+            'message' => 'Successfully created lesson!',
+            'lesson' => $lesson->makeHidden('course')
         ]);
     }
 
@@ -96,7 +89,7 @@ class CourseController extends Controller
      */
     public function edit($id)
     {
-
+        //
     }
 
     /**
@@ -110,40 +103,25 @@ class CourseController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'description' => 'required',
+            'content' => 'required',
         ]);
         if ($validator->fails())  {
             return response()->json(['errors' => $validator->getMessageBag()->toArray()], 422);
         }
-
-        $course = Course::findOrFail($id);
-        $course->name = $request->input('name');
-        $course->description = $request->input('description');
-        $course->type_id = $request->input('type_id');
-
-        if($request->has('status_id')){
-            $course->status_id = $request->input('status_id');
+        $lesson = Lesson::findOrFail($id);
+        $lesson->content = $request->input('content');
+        $lesson->name = $request->input('name');
+        $course = $lesson->course;
+        if($course->user_id != auth()->id()){
+            return response()->json([
+                'message' => 'Unauthorized'
+            ]);
         }
-
-        $user = User::findOrFail(auth()->id());
-        $user->ownedCourses()->save($course);
-
-        if($request->has('tags')){
-            CourseTags::whereCourseId($course->id)->delete();
-            $tags = $request->input('tags');
-            for($i = 0; $i< count($tags); $i++){
-                $tag = new CourseTags();
-                $tag->name = $tags[$i];
-                $tag->course_id = $course->id;
-                $course->tags()->save($tag);
-            }
-        }
-
-        $courseWithRelations = Course::findOrFail($course->id);
+        $lesson->save();
 
         return response()->json([
-            'message' => 'Successfully created course!',
-            'course' => $courseWithRelations
+            'message' => 'Successfully updated education!',
+            'lesson' => $lesson->makeHidden('course')
         ]);
     }
 
@@ -155,9 +133,12 @@ class CourseController extends Controller
      */
     public function destroy($id)
     {
-        $course = Course::findOrFail($id);
-        if($course->user_id == auth()->id()){
-            $course->delete();
+        $lesson = Lesson::findOrFail($id);
+        if($lesson->course->user_id != auth()->id()){
+            return response()->json([
+                'message' => 'Unauthorized'
+            ]);
         }
+        $lesson->delete();
     }
 }

@@ -75,8 +75,9 @@
             },
             onCancel() {
                 this.$emit('canceled')
+                this.$store.dispatch('clearError', 'basicInfo')
                 let payload = {
-                    form: 'basicInfo',
+                    form: 'updateDialog',
                     isDisplaying: false
                 }
                 this.$store.dispatch('setDisplaying', payload)

@@ -40,4 +40,7 @@ Route::post('/courses', 'CourseController@store')->middleware('auth.jwt');
 Route::delete('/courses/{course}', 'CourseController@destroy')->middleware('auth.jwt');
 Route::put('/courses/{course}', 'CourseController@update')->middleware('auth.jwt');
 
+Route::post('/lessons', 'LessonController@store')->middleware('auth.jwt');
+Route::put('/lessons/{lesson}', 'LessonController@update')->middleware('auth.jwt');
+
 Route::get('/coursetypes', 'CourseTypeController@index')->middleware('auth.jwt');

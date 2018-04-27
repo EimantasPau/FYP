@@ -13,7 +13,8 @@ import Vuetify from 'vuetify'
 Vue.use(Vuetify)
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
-
+import moment from 'moment'
+Vue.prototype.moment = moment
 import AlertComponent from './components/Shared/Alert'
 Vue.component('app-alert', AlertComponent)
 Vue.component('vue-editor', VueEditor)

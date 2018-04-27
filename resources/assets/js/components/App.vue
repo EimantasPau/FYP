@@ -11,18 +11,6 @@
                 </v-list>
             </v-toolbar>
             <v-list>
-                <!--<v-list-tile v-for="item in menuItems"-->
-                             <!--:key="item.title"-->
-                             <!--flat-->
-                             <!--router-->
-                             <!--:to="item.link">-->
-                    <!--<v-list-tile-action>-->
-                        <!--<v-icon>home</v-icon>-->
-                    <!--</v-list-tile-action>-->
-                    <!--<v-list-tile-content>-->
-                    <!--{{item.title}}-->
-                    <!--</v-list-tile-content>-->
-                <!--</v-list-tile>-->
                 <v-list-tile v-for="item in menuItems" :key="item.title" exact router :to="item.link">
                     <v-list-tile-action>
                         <v-icon>{{ item.icon }}</v-icon>
@@ -33,7 +21,7 @@
                 </v-list-tile>
             </v-list>
         </v-navigation-drawer>
-        <v-toolbar class="white">
+        <v-toolbar dark class="grey darken-3">
             <v-toolbar-side-icon class="hidden-md-and-up" @click="sideNav = !sideNav"></v-toolbar-side-icon>
             <v-toolbar-title>Educational platform</v-toolbar-title>
             <v-spacer></v-spacer>

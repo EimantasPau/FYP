@@ -30,6 +30,10 @@ import Courses from '../components/User/Courses/Courses'
 import CoursesCreate from '../components/User/Courses/CoursesCreate'
 import CoursesIndex from '../components/User/Courses/CoursesIndex'
 import CoursesUpdate from '../components/User/Courses/CoursesUpdate'
+
+import LessonsIndex from '../components/User/Lessons/LessonsIndex'
+import LessonsCreate from '../components/User/Lessons/LessonsCreate'
+import LessonsUpdate from '../components/User/Lessons/LessonsUpdate'
 Vue.use(Router)
 
 export const router = new Router({
@@ -52,63 +56,98 @@ export const router = new Router({
         {
             path: '/account',
             component: Account,
+            beforeEnter: AuthGuard,
             children: [
                 {
                     path: 'courses',
                     component: Courses,
+                    beforeEnter: AuthGuard,
                     children: [
                         {
                             path: 'create',
-                            component: CoursesCreate
+                            component: CoursesCreate,
+                            beforeEnter: AuthGuard,
                         },
                         {
                             path: ':id',
                             component: CoursesUpdate,
-                            props: true
+                            props: true,
+                            beforeEnter: AuthGuard,
                         },
                         {
                             path: '',
-                            component: CoursesIndex
-                        }
+                            component: CoursesIndex,
+                            beforeEnter: AuthGuard,
+                        },
+                        {
+                            path: ':id/lessons',
+                            component: LessonsIndex,
+                            props: true,
+                            beforeEnter: AuthGuard,
+                        },
+                        {
+                            path: ':id/lessons/create',
+                            component: LessonsCreate,
+                            props: true,
+                            beforeEnter: AuthGuard,
+                        },
+                        {
+                            path: ':id/lessons/:lesson_id/update',
+                            component: LessonsUpdate,
+                            props: true,
+                            beforeEnter: AuthGuard,
+                        },
+
                     ]
                 },
                 {
                   path: 'education',
                   component: Education,
+                    beforeEnter: AuthGuard,
                   children: [
                       {
                           path: 'create',
-                          component: EducationCreate
+                          component: EducationCreate,
+                          beforeEnter: AuthGuard,
                       },
                       {
                           path: ':id',
                           component: EducationUpdate,
-                          props: true
+                          props: true,
+                          beforeEnter: AuthGuard,
                       },
                       {
                           path: '',
-                          component: EducationIndex
+                          component: EducationIndex,
+                          beforeEnter: AuthGuard,
                       },
                   ],
                 },
                 {
                     path: 'experience',
                     component: Experience,
+                    beforeEnter: AuthGuard,
                     children: [
                         {
                             path: 'create',
-                            component: ExperienceCreate
+                            component: ExperienceCreate,
+                            beforeEnter: AuthGuard,
                         },
                         {
                             path: ':id',
                             component: ExperienceUpdate,
-                            props: true
+                            props: true,
+                            beforeEnter: AuthGuard,
                         },
                         {
                             path: '',
-                            component: ExperienceIndex
+                            component: ExperienceIndex,
+                            beforeEnter: AuthGuard,
                         },
                     ]
+                },
+                {
+                    path: 'lessons'
                 },
                 {
                     path: '',
