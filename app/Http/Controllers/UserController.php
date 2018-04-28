@@ -122,7 +122,6 @@ class UserController extends Controller
             $ext = $file->getClientOriginalExtension();
             $fileName = md5(time()). ".$ext";
             $path = $file->storePublicly('avatars');
-            $path = "/storage/" . $path;
             $file = new File();
             $file->file_name = $fileName;
             $file->file_path = $path;

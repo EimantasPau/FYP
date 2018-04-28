@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Course;
+use App\File;
 use App\Lesson;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 class LessonController extends Controller
 {
@@ -62,7 +64,20 @@ class LessonController extends Controller
                 'message' => 'Unauthorized'
             ]);
         }
+
         $course->lessons()->save($lesson);
+
+        if($file = $request->file('file')){
+            $file = $request->file('file');
+            $ext = $file->getClientOriginalExtension();
+            $fileName = md5(time()). ".$ext";
+            $path = $file->storePublicly('lessons');
+            $file = new File();
+            $file->file_name = $fileName;
+            $file->file_path = $path;
+
+            $lesson->file()->save($file);
+        }
 
         return response()->json([
             'message' => 'Successfully created lesson!',
@@ -139,6 +154,8 @@ class LessonController extends Controller
                 'message' => 'Unauthorized'
             ]);
         }
+        Storage::delete($lesson->file->file_path);
+        $lesson->file()->delete();
         $lesson->delete();
     }
 }

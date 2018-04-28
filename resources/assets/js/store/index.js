@@ -10,6 +10,7 @@ export const store = new Vuex.Store({
        user: null,
        users: [],
        loading: false,
+       uploading: false,
        //errors from different forms
        errors: {
            signIn: null,
@@ -20,7 +21,9 @@ export const store = new Vuex.Store({
            experienceCreate: null,
            experienceUpdate: null,
            courseCreate: null,
-           courseUpdate: null
+           courseUpdate: null,
+           lessonCreate: null,
+           lessonUpdate: null
        },
        //for modals, to deal with not closing when errors are present
        isDisplaying: {
@@ -37,6 +40,9 @@ export const store = new Vuex.Store({
        },
        setLoading(state, payload) {
            state.loading = payload
+       },
+       setUploading(state, payload) {
+           state.uploading = payload
        },
        setError(state, payload) {
            state.errors[payload.form] = payload.errors
@@ -90,10 +96,24 @@ export const store = new Vuex.Store({
            let index = state.user.owned_courses.indexOf(payload)
            state.user.owned_courses.splice(index, 1)
        },
+       addLesson(state, payload) {
+           let course = state.user.owned_courses.find(course => course.id == payload.course_id)
+           console.log(course)
+           course.lessons.push(payload)
+       },
+       updateLesson(state, payload) {
+           let oldCourse = state.user.owned_courses.find(course => course.id == payload.id)
+           let oldIndex = state.user.owned_courses.indexOf(oldCourse)
+           state.user.owned_courses[oldIndex] = payload
+       },
+       deleteLesson(state, payload) {
+           let course = state.user.owned_courses.find(course => course.id == payload.course_id)
+           let index = course.lessons.indexOf(payload)
+           course.lessons.splice(index, 1)
+       },
    },
    actions: {
        //courses
-       //experience actions
        addCourse({commit}, payload) {
            commit('clearError', 'courseCreate')
            const token = localStorage.getItem('token')
@@ -117,6 +137,50 @@ export const store = new Vuex.Store({
                .then(() => commit('deleteCourse', payload))
        },
        updateCourse({commit}, payload) {
+           const token = localStorage.getItem('token')
+           axios.put('/api/courses/' + payload.id +  '?token=' + token, payload)
+               .then(response => {
+                   commit('updateCourse', response.data.course)
+                   router.push('/account/courses')
+               })
+               .catch(errors => {
+                   let payload = {
+                       form: 'courseUpdate',
+                       errors : errors.response.data.errors
+                   }
+                   commit('setError', payload)
+               })
+       },
+       addLesson({commit}, payload) {
+           commit('setUploading', true)
+           commit('clearError', 'lessonCreate')
+           const token = localStorage.getItem('token')
+
+           axios.post('/api/lessons?token=' + token, payload,  {
+               headers: {
+                   'Content-Type': 'multipart/form-data'
+               }
+           })
+               .then(response => {
+                   commit('setUploading', false)
+                   commit('addLesson', response.data.lesson)
+                   router.push('/account/courses/' + response.data.lesson.course_id + '/lessons')
+               })
+               .catch(errors => {
+                   let payload = {
+                       form: 'lessonCreate',
+                       errors : errors.response.data.errors
+                   }
+                   commit('setUploading', false)
+                   commit('setError', payload)
+               })
+       },
+       deleteLesson({commit}, payload) {
+           const token = localStorage.getItem('token')
+           axios.delete('/api/lessons/' + payload.id +  '?token=' + token, payload)
+               .then(() => commit('deleteLesson', payload))
+       },
+       updateLesson({commit}, payload) {
            const token = localStorage.getItem('token')
            axios.put('/api/courses/' + payload.id +  '?token=' + token, payload)
                .then(response => {
@@ -329,6 +393,9 @@ export const store = new Vuex.Store({
        },
        loading(state) {
            return state.loading
+       },
+       uploading(state) {
+           return state.uploading
        },
        isDisplaying(state) {
            return state.isDisplaying

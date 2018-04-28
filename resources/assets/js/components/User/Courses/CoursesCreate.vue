@@ -1,6 +1,6 @@
 <template>
     <v-container>
-        <h1 class="display-1 grey--text text--darken-1"> <v-btn fab small color="primary" router to="/account/courses"><v-icon medium color="white">arrow_back</v-icon ></v-btn> Create a new course</h1>
+        <h1 class="display-1 grey--text text--darken-1"> <v-btn fab small color="primary" router :to="'/account/courses/'"><v-icon medium color="white">arrow_back</v-icon ></v-btn> Create a new course</h1>
         <transition name="fade" mode="out-in">
             <app-alert v-if="errors" @dismissed="onDismissed" :text="errors"></app-alert>
         </transition>

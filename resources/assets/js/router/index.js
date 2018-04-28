@@ -69,7 +69,7 @@ export const router = new Router({
                             beforeEnter: AuthGuard,
                         },
                         {
-                            path: ':id',
+                            path: ':id/update',
                             component: CoursesUpdate,
                             props: true,
                             beforeEnter: AuthGuard,

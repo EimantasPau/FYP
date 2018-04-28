@@ -58,7 +58,7 @@
                 return this.$store.getters.user
             },
             profileImage() {
-                return this.$store.getters.user.file ? this.profileUser.file.file_path : '/images/default-profile.png'
+                return this.$store.getters.user.file ? '/storage/' +this.profileUser.file.file_path : '/images/default-profile.png'
             },
             updateDialog() {
             return this.$store.getters.isDisplaying.updateDialog
