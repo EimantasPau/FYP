@@ -98,13 +98,17 @@ export const store = new Vuex.Store({
        },
        addLesson(state, payload) {
            let course = state.user.owned_courses.find(course => course.id == payload.course_id)
-           console.log(course)
            course.lessons.push(payload)
        },
        updateLesson(state, payload) {
-           let oldCourse = state.user.owned_courses.find(course => course.id == payload.id)
-           let oldIndex = state.user.owned_courses.indexOf(oldCourse)
-           state.user.owned_courses[oldIndex] = payload
+           console.log('updating')
+           let course = state.user.owned_courses.find(course => course.id == payload.course_id)
+           console.log('old course is ' +course)
+           let oldLesson = course.lessons.find(lesson => lesson.id == payload.id)
+           console.log('old oldLesson is ' +oldLesson)
+           let oldIndex = course.lessons.indexOf(oldLesson)
+           console.log('old index is ' +oldIndex)
+           course.lessons[oldIndex] = payload
        },
        deleteLesson(state, payload) {
            let course = state.user.owned_courses.find(course => course.id == payload.course_id)
@@ -152,10 +156,10 @@ export const store = new Vuex.Store({
                })
        },
        addLesson({commit}, payload) {
+           console.log(payload)
            commit('setUploading', true)
            commit('clearError', 'lessonCreate')
            const token = localStorage.getItem('token')
-
            axios.post('/api/lessons?token=' + token, payload,  {
                headers: {
                    'Content-Type': 'multipart/form-data'
@@ -181,17 +185,28 @@ export const store = new Vuex.Store({
                .then(() => commit('deleteLesson', payload))
        },
        updateLesson({commit}, payload) {
+           console.log(payload.lesson_id)
+           commit('setUploading', true)
+           commit('clearError', 'lessonUpdate')
            const token = localStorage.getItem('token')
-           axios.put('/api/courses/' + payload.id +  '?token=' + token, payload)
+           let url = '/api/lessons/'+ payload.lesson_id +'?token='+ token
+           axios.post(url, payload.formData,  {
+               headers: {
+                   'Content-Type': 'multipart/form-data'
+               }
+           })
                .then(response => {
-                   commit('updateCourse', response.data.course)
-                   router.push('/account/courses')
+                   console.log(response)
+                   commit('setUploading', false)
+                   commit('updateLesson', response.data.lesson)
+                   router.push('/account/courses/' + response.data.lesson.course_id + '/lessons')
                })
                .catch(errors => {
                    let payload = {
-                       form: 'courseUpdate',
+                       form: 'lessonUpdate',
                        errors : errors.response.data.errors
                    }
+                   commit('setUploading', false)
                    commit('setError', payload)
                })
        },

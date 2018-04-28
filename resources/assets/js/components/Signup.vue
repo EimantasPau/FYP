@@ -1,7 +1,7 @@
 <template>
    <v-container>
        <v-layout row justify-center>
-           <v-flex md4>
+           <v-flex lg4>
                   <v-card>
                       <v-card-text>
                           <transition name="fade" mode="out-in">
@@ -14,7 +14,6 @@
                                           label="Name"
                                           v-model="name"
                                           :rules="[isEmpty(name)]"
-
                                   ></v-text-field>
                                   <v-text-field
                                           label="E-mail"

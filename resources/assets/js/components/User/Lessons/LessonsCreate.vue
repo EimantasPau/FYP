@@ -65,11 +65,10 @@
                 formData.append('name', this.name)
                 formData.append('content', this.content)
                 formData.append('course_id', this.id)
+
                 if(this.$refs.file){
                     formData.append('file', this.$refs.file.files[0])
                 }
-
-                console.log(formData)
                 this.$store.dispatch('addLesson', formData)
 
             },
@@ -79,10 +78,6 @@
             onCancel() {
                 this.$store.dispatch('clearError','lessonCreate')
                 this.$router.push('/account/courses/' + this.id)
-            },
-            remove (item) {
-                this.tags.splice(this.tags.indexOf(item), 1)
-                this.tags = [...this.tags]
             },
             selectFile(){
                 this.$refs.file.click()

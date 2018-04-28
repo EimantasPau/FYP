@@ -1,21 +1,24 @@
 <template>
     <v-content>
         <section>
-            <v-parallax :src="require('../../images/hero.png')" height="600">
+            <v-parallax :src="require('../../images/home.jpg')" height="600">
                 <v-layout
                         column
                         align-center
                         justify-center
                         class="white--text"
                 >
-                    <img src="../../images/vuetify.png" alt="Vuetify.js" height="200">
-                    <h1 class="white--text mb-2 display-1 text-xs-center">Education Plus</h1>
-                    <div class="subheading mb-3 text-xs-center">Learn as you go</div>
+                    <!--<img src="../../images/vuetify.png" alt="Vuetify.js" height="200">-->
+                    <div style="background-color: rgba(28, 28, 28, 0.5);padding: 30px 100px;">
+                        <h1 class="white--text mb-2 display-1 text-xs-center">Education Plus</h1>
+                        <div class="subheading mb-3 text-xs-center">Start teaching or learning today!</div>
+                    </div>
                     <v-btn
                             class="blue lighten-2 mt-5"
                             dark
                             large
-                            href="/pre-made-themes"
+                            router
+                            to="/signup"
                     >
                         Get Started
                     </v-btn>
@@ -95,13 +98,14 @@
         <section>
             <v-parallax :src="require('../../images/section.png')">
                 <v-layout column align-center justify-center>
-                    <div class="headline white--text mb-3 text-xs-center">Web development has never been easier</div>
-                    <em>Kick-start your application today</em>
+                    <div class="headline white--text mb-3 text-xs-center">Learning new skills has never been easier</div>
+                    <em>Kick-start your registration today</em>
                     <v-btn
                             class="blue lighten-2 mt-5"
                             dark
                             large
-                            href="/pre-made-themes"
+                            router
+                            to="/signup"
                     >
                         Get Started
                     </v-btn>

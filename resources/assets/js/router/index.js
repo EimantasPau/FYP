@@ -34,6 +34,8 @@ import CoursesUpdate from '../components/User/Courses/CoursesUpdate'
 import LessonsIndex from '../components/User/Lessons/LessonsIndex'
 import LessonsCreate from '../components/User/Lessons/LessonsCreate'
 import LessonsUpdate from '../components/User/Lessons/LessonsUpdate'
+
+import TutorSearch from '../components/TutorSearch/TutorSearch'
 Vue.use(Router)
 
 export const router = new Router({
@@ -47,6 +49,11 @@ export const router = new Router({
             path: '/',
             component: Home,
             name: 'Home'
+        },
+        {
+            path: '/tutors',
+            component: TutorSearch,
+            name: 'Tutors'
         },
         {
           path: '/privacy',

@@ -1,7 +1,7 @@
 <template>
     <v-container>
         <v-layout row justify-center>
-            <v-flex md4>
+            <v-flex lg4>
                 <v-card>
                     <v-card-text>
                         <app-alert v-if="errors" @dismissed="onDismissed" :text="errors"></app-alert>

@@ -77,7 +77,7 @@
                 if(this.userIsAuthenticated) {
                     menuItems = [
                         { title: 'Home', link: '/'},
-                        { title: 'Search tutors', link: '/hgh'},
+                        { title: 'Search tutors', link: '/tutors'},
                         { title: 'View courses', link: '/hghgh'},
                         { title: 'My account', link: '/account'},
                     ]
