@@ -95,7 +95,6 @@
                     {title: 'Account', link: '/account'},
                     {title: 'Privacy policy', link: '/privacy'},
                 ]
-
                 return footerLinks
             }
 

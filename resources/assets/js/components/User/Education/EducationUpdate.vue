@@ -8,7 +8,7 @@
             <v-layout row wrap>
                 <v-flex xs12 md6>
                     <v-text-field
-                            label="Name"
+                            label="Degree or course title"
                             v-model="name"
                     ></v-text-field>
                 </v-flex>
@@ -16,7 +16,7 @@
             <v-layout row wrap>
                 <v-flex xs12 md6>
                     <v-text-field
-                            label="Institution"
+                            label="School or University"
                             v-model="institution"
                     ></v-text-field>
                 </v-flex>
@@ -24,7 +24,7 @@
             <v-layout row wrap>
                 <v-flex xs12 md6>
                     <v-text-field
-                            label="Classification"
+                            label="Type of education"
                             v-model="classification"
                     ></v-text-field>
                 </v-flex>

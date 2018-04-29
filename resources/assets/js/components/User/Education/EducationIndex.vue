@@ -8,13 +8,13 @@
                 <v-alert outline color="green lighten-3" value="true">
                     <v-layout row wrap>
                         <v-flex xs12 lg2>
-                            <div class="grey--text text--darken-1">Name</div><div style="word-wrap: break-word;" class="subheading">{{item.name}}</div>
+                            <div class="grey--text text--darken-1">Course/Degree</div><div style="word-wrap: break-word;" class="subheading">{{item.name}}</div>
                         </v-flex>
                         <v-flex xs12 lg2>
-                            <div class="grey--text text--darken-1">Institution</div><div style="word-wrap: break-word;" class="subheading">{{item.institution}}</div>
+                            <div class="grey--text text--darken-1">School/University</div><div style="word-wrap: break-word;" class="subheading">{{item.institution}}</div>
                         </v-flex>
                         <v-flex xs12 lg2>
-                            <div class="grey--text text--darken-1">Classification </div><div style="word-wrap: break-word;" class="subheading">{{item.classification}}</div>
+                            <div class="grey--text text--darken-1">Type </div><div style="word-wrap: break-word;" class="subheading">{{item.classification}}</div>
                         </v-flex>
                         <v-flex xs12 lg2>
                             <div class="grey--text text--darken-1">Starting date </div><div class="subheading">{{item.started_on}}</div>

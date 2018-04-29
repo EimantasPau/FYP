@@ -15,6 +15,8 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 import moment from 'moment'
 Vue.prototype.moment = moment
+import VueSticky from 'vue-sticky-js';
+Vue.use(VueSticky.install);
 import AlertComponent from './components/Shared/Alert'
 Vue.component('app-alert', AlertComponent)
 Vue.component('vue-editor', VueEditor)
@@ -36,6 +38,5 @@ const app = new Vue({
     store,
     created() {
         this.$store.dispatch('autoSignIn')
-        this.$store.dispatch('getUsers')
     }
 });

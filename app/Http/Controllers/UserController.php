@@ -18,7 +18,9 @@ class UserController extends Controller
 
     public function index() {
         $users = User::all();
-        return response($users);
+        return response()->json([
+            'tutors' => $users
+        ],200);
     }
 
     public function signup(Request $request) {

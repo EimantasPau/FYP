@@ -5,9 +5,9 @@
                 <v-flex xs12 md3>
                     <v-navigation-drawer permanent width="100%">
                         <v-toolbar flat>
-                            <v-list class="blue-grey lighten-5">
+                            <v-list class="grey darken-3">
                                 <v-list-tile>
-                                    <v-list-tile-title class="title">
+                                    <v-list-tile-title class="title white--text">
                                         Your account
                                     </v-list-tile-title>
                                 </v-list-tile>
@@ -94,7 +94,8 @@
                 coursesMenu: [
                     {
                         title: 'My courses',
-                        link: '/account/courses'
+                        link: '/account/courses',
+                        icon: 'featured_play_list'
                     },
                     {
                         title: 'Create new course',

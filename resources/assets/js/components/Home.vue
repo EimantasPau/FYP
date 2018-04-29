@@ -50,7 +50,7 @@
                                         <v-icon x-large class="blue--text text--lighten-2">color_lens</v-icon>
                                     </v-card-text>
                                     <v-card-title primary-title class="layout justify-center">
-                                        <div class="headline text-xs-center">Material Design</div>
+                                        <div class="headline text-xs-center">Great selection of tutors</div>
                                     </v-card-title>
                                     <v-card-text>
                                         Cras facilisis mi vitae nunc lobortis pharetra. Nulla volutpat tincidunt ornare.
@@ -65,7 +65,7 @@
                                         <v-icon x-large class="blue--text text--lighten-2">flash_on</v-icon>
                                     </v-card-text>
                                     <v-card-title primary-title class="layout justify-center">
-                                        <div class="headline">Fast development</div>
+                                        <div class="headline">Many types of courses</div>
                                     </v-card-title>
                                     <v-card-text>
                                         Cras facilisis mi vitae nunc lobortis pharetra. Nulla volutpat tincidunt ornare.
@@ -80,7 +80,7 @@
                                         <v-icon x-large class="blue--text text--lighten-2">build</v-icon>
                                     </v-card-text>
                                     <v-card-title primary-title class="layout justify-center">
-                                        <div class="headline text-xs-center">Completely Open Sourced</div>
+                                        <div class="headline text-xs-center">Completely Free</div>
                                     </v-card-title>
                                     <v-card-text>
                                         Cras facilisis mi vitae nunc lobortis pharetra. Nulla volutpat tincidunt ornare.
@@ -119,7 +119,7 @@
                     <v-flex xs12 sm4>
                         <v-card class="elevation-0 transparent">
                             <v-card-title primary-title class="layout justify-center">
-                                <div class="headline">Company info</div>
+                                <div class="headline">Who are we?</div>
                             </v-card-title>
                             <v-card-text>
                                 Cras facilisis mi vitae nunc lobortis pharetra. Nulla volutpat tincidunt ornare.
@@ -134,7 +134,7 @@
                                 <div class="headline">Contact us</div>
                             </v-card-title>
                             <v-card-text>
-                                Cras facilisis mi vitae nunc lobortis pharetra. Nulla volutpat tincidunt ornare.
+                                If you have any question or would like to report a problem, feel free to contact us.
                             </v-card-text>
                             <v-list class="transparent">
                                 <v-list-tile>
@@ -142,7 +142,7 @@
                                         <v-icon class="blue--text text--lighten-2">phone</v-icon>
                                     </v-list-tile-action>
                                     <v-list-tile-content>
-                                        <v-list-tile-title>777-867-5309</v-list-tile-title>
+                                        <v-list-tile-title>07412345645</v-list-tile-title>
                                     </v-list-tile-content>
                                 </v-list-tile>
                                 <v-list-tile>
@@ -150,7 +150,7 @@
                                         <v-icon class="blue--text text--lighten-2">place</v-icon>
                                     </v-list-tile-action>
                                     <v-list-tile-content>
-                                        <v-list-tile-title>Chicago, US</v-list-tile-title>
+                                        <v-list-tile-title>Huddersfield, UK</v-list-tile-title>
                                     </v-list-tile-content>
                                 </v-list-tile>
                                 <v-list-tile>
@@ -158,7 +158,7 @@
                                         <v-icon class="blue--text text--lighten-2">email</v-icon>
                                     </v-list-tile-action>
                                     <v-list-tile-content>
-                                        <v-list-tile-title>john@vuetifyjs.com</v-list-tile-title>
+                                        <v-list-tile-title>contact@educationplus.com</v-list-tile-title>
                                     </v-list-tile-content>
                                 </v-list-tile>
                             </v-list>

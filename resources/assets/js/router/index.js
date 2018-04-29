@@ -36,24 +36,38 @@ import LessonsCreate from '../components/User/Lessons/LessonsCreate'
 import LessonsUpdate from '../components/User/Lessons/LessonsUpdate'
 
 import TutorSearch from '../components/TutorSearch/TutorSearch'
+import TutorProfile from '../components/TutorSearch/Profile'
+
+import Course from '../components/Course'
+import Lesson from '../components/Lesson'
 Vue.use(Router)
 
 export const router = new Router({
     routes: [
-        {
-            path: '/users',
-            component: ExampleComponent,
-            name: 'Example'
-        },
         {
             path: '/',
             component: Home,
             name: 'Home'
         },
         {
+            path: '/profile/:id',
+            component: TutorProfile,
+            props: true
+        },
+        {
             path: '/tutors',
             component: TutorSearch,
             name: 'Tutors'
+        },
+        {
+            path: '/courses/:id',
+            component: Course,
+            props: true
+        },
+        {
+            path: '/lessons/:id',
+            component: Lesson,
+            props: true
         },
         {
           path: '/privacy',

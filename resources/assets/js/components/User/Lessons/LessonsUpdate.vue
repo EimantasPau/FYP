@@ -19,6 +19,7 @@
                             @click="selectFile"
                             color="blue-grey"
                             class="white--text"
+                            small
                     >
                         Select video to upload.
                         <v-icon right dark>cloud_upload</v-icon>

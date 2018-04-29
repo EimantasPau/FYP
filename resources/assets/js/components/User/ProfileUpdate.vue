@@ -23,7 +23,17 @@
                                   hint="This will be shown on your profile visible to other users."
                                   v-model="bio">
                     </v-text-field>
-                    <input class="d-block" type="file" ref="profileImage">
+                    <v-btn
+                            @click="selectFile"
+                            color="blue-grey"
+                            class="white--text"
+                            small
+                    >
+                        Add a photo
+                        <v-icon right dark>cloud_upload</v-icon>
+                    </v-btn>
+                    <p v-if="filename"><strong>File selected</strong>: {{filename}}</p>
+                    <input type="file" hidden ref="profileImage" @change="handleFileUpload">
                     <v-layout justify-end>
                         <v-btn  :loading="this.$store.getters.loading"
                                 :disabled="this.$store.getters.loading || !validate"
@@ -43,7 +53,8 @@
                 name: this.user.name,
                 email: this.user.email,
                 bio: this.user.bio,
-                profile_image: ''
+                profile_image: '',
+                filename: ''
 
             }
         },
@@ -81,6 +92,13 @@
                     isDisplaying: false
                 }
                 this.$store.dispatch('setDisplaying', payload)
+            },
+            selectFile() {
+                this.$refs.profileImage.click()
+            },
+            handleFileUpload(event) {
+                this.filename = event.target.files[0].name;
+                this.file = this.$refs.file.files[0]
             }
         }
     }

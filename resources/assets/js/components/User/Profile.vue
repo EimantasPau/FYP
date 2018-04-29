@@ -37,8 +37,6 @@
                    <skills></skills>
                </v-flex>
            </v-layout>
-
-
        </v-container>
    </v-content>
 </template>

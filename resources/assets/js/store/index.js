@@ -8,7 +8,7 @@ import {router} from "../router/index"
 export const store = new Vuex.Store({
    state: {
        user: null,
-       users: [],
+       tutors:[],
        loading: false,
        uploading: false,
        //errors from different forms
@@ -32,11 +32,11 @@ export const store = new Vuex.Store({
 
    },
    mutations: {
-       loadUsers(state, payload) {
-           state.users = payload;
-       },
        setUser(state, payload) {
-           state.user = payload;
+           state.user = payload
+       },
+       setTutors(state, payload) {
+         state.tutors = payload
        },
        setLoading(state, payload) {
            state.loading = payload
@@ -117,6 +117,21 @@ export const store = new Vuex.Store({
        },
    },
    actions: {
+       //tutors
+       getTutors({commit}, payload) {
+           commit('setLoading', true)
+           const token = localStorage.getItem('token')
+           axios.get('/api/users?token=' + token, payload)
+               .then(response => {
+                   commit('setLoading', false)
+                   console.log(JSON.stringify(response.data.tutors))
+                   commit('setTutors', response.data.tutors)
+               })
+               .catch(errors => {
+                   commit('setLoading', false)
+                 console.log("Oops. Something went wrong.")
+               })
+       },
        //courses
        addCourse({commit}, payload) {
            commit('clearError', 'courseCreate')
@@ -300,10 +315,6 @@ export const store = new Vuex.Store({
                })
        },
        //user actions
-       getUsers({commit}) {
-           axios.get('/api/users')
-               .then(response => commit('loadUsers', response.data))
-       },
        updateUser({commit}, payload) {
            commit('clearError', 'basicInfo')
            commit('setLoading', true)
@@ -397,8 +408,8 @@ export const store = new Vuex.Store({
 
    },
    getters: {
-       users(state) {
-           return state.users
+       tutors(state) {
+           return state.tutors
        },
        user(state) {
            return state.user
