@@ -45,3 +45,6 @@ Route::post('/lessons/{lesson}', 'LessonController@update')->middleware('auth.jw
 Route::delete('/lessons/{lesson}', 'LessonController@destroy')->middleware('auth.jwt');
 
 Route::get('/coursetypes', 'CourseTypeController@index')->middleware('auth.jwt');
+
+Route::post('/questions', 'QuestionController@store')->middleware('auth.jwt');
+Route::get('/questions', 'QuestionController@index')->middleware('auth.jwt');

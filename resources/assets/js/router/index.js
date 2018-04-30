@@ -38,6 +38,8 @@ import LessonsUpdate from '../components/User/Lessons/LessonsUpdate'
 import TutorSearch from '../components/TutorSearch/TutorSearch'
 import TutorProfile from '../components/TutorSearch/Profile'
 
+import CourseSearch from '../components/CourseSearch/CourseSearch'
+
 import Course from '../components/Course'
 import Lesson from '../components/Lesson'
 Vue.use(Router)
@@ -58,6 +60,10 @@ export const router = new Router({
             path: '/tutors',
             component: TutorSearch,
             name: 'Tutors'
+        },
+        {
+            path: '/courses',
+            component: CourseSearch
         },
         {
             path: '/courses/:id',

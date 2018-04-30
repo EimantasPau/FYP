@@ -8,7 +8,7 @@ import {router} from "../router/index"
 export const store = new Vuex.Store({
    state: {
        user: null,
-       tutors:[],
+       tutors: null,
        loading: false,
        uploading: false,
        //errors from different forms
@@ -23,7 +23,8 @@ export const store = new Vuex.Store({
            courseCreate: null,
            courseUpdate: null,
            lessonCreate: null,
-           lessonUpdate: null
+           lessonUpdate: null,
+           questionCreate: null
        },
        //for modals, to deal with not closing when errors are present
        isDisplaying: {
@@ -401,6 +402,9 @@ export const store = new Vuex.Store({
        //general actions
        clearError({commit}, payload) {
            commit('clearError', payload)
+       },
+       setError({commit}, payload) {
+         commit('setError', payload)
        },
        setDisplaying({commit}, payload) {
            commit('setDisplaying', payload)

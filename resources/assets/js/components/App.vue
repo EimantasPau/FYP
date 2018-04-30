@@ -78,7 +78,7 @@
                     menuItems = [
                         { title: 'Home', link: '/'},
                         { title: 'Search tutors', link: '/tutors'},
-                        { title: 'View courses', link: '/hghgh'},
+                        { title: 'View courses', link: '/courses'},
                         { title: 'My account', link: '/account'},
                     ]
                 }

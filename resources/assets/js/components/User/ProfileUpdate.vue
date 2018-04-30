@@ -5,8 +5,13 @@
                 <app-alert v-if="errors" @dismissed="onDismissed" :text="errors"></app-alert>
             </transition>
             <v-container>
-                <h3 class="headline mb-0">Update details</h3>
+                <h3 class="headline mb-3">Update details</h3>
                 <v-form>
+                    <label>Appear in search results?</label>
+                    <v-radio-group v-model="isPublic" row>
+                        <v-radio label="No" value="0"></v-radio>
+                        <v-radio label="Yes" value="1"></v-radio>
+                    </v-radio-group>
                     <v-text-field
                             label="Name"
                             v-model="name"
@@ -54,8 +59,8 @@
                 email: this.user.email,
                 bio: this.user.bio,
                 profile_image: '',
-                filename: ''
-
+                filename: '',
+                isPublic: this.user.isPublic.toString()
             }
         },
         props: {
@@ -78,6 +83,7 @@
                 formData.append('name', this.name)
                 formData.append('email', this.email)
                 formData.append('bio', this.bio)
+                formData.append('isPublic', this.isPublic)
                 formData.append('profile_image', this.$refs.profileImage.files[0])
                 this.$store.dispatch('updateUser', formData)
             },

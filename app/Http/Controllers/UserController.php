@@ -11,13 +11,11 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function __construct()
-    {
-
-    }
 
     public function index() {
-        $users = User::all();
+        $users = User::with(['ownedCourses' => function($query){
+            $query->where('status_id', 2);
+        }])->where('isPublic', 1)->get();
         return response()->json([
             'tutors' => $users
         ],200);
@@ -89,7 +87,7 @@ class UserController extends Controller
     }
 
     public function user() {
-        $user = User::findOrFail(auth()->id());
+        $user = User::where('id',auth()->id())->with('ownedCourses')->get()->first();
         return response()->json([
             'user' => $user
         ]);
@@ -101,7 +99,7 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|email',
             'bio' => 'required',
-
+            'isPublic' => 'required'
         ]);
 
         if ($validator->fails())  {
@@ -113,6 +111,7 @@ class UserController extends Controller
         $user->name =  $request->input('name');
         $user->email = $request->input('email');
         $user->bio = $request->input('bio');
+        $user->isPublic = $request->input('isPublic');
         $user->save();
 
         if($request->file('profile_image')){

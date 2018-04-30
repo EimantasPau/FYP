@@ -14,4 +14,8 @@ class Lesson extends Model
     public function file() {
         return $this->morphOne('App\File', 'fileable');
     }
+
+    public function questions(){
+        return $this->hasMany(Question::class);
+    }
 }

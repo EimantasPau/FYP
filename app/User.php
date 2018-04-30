@@ -9,7 +9,7 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 class User extends Authenticatable implements JWTSubject
 {
     use Notifiable;
-    protected $with = ['file', 'skills', 'education', 'experience', 'ownedCourses'];
+    protected $with = ['file', 'skills', 'education', 'experience'];
     /**
      * The attributes that are mass assignable.
      *
