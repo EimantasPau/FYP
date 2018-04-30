@@ -42,6 +42,7 @@ import CourseSearch from '../components/CourseSearch/CourseSearch'
 
 import Course from '../components/Course'
 import Lesson from '../components/Lesson'
+import Groups from '../components/Groups'
 Vue.use(Router)
 
 export const router = new Router({
@@ -60,6 +61,10 @@ export const router = new Router({
             path: '/tutors',
             component: TutorSearch,
             name: 'Tutors'
+        },
+        {
+            path: '/conversations',
+            component: Groups
         },
         {
             path: '/courses',

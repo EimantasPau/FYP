@@ -52,6 +52,10 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->getKey();
     }
+
+    public function groups(){
+        return $this->belongsToMany('App\Group');
+    }
     public function getJWTCustomClaims()
     {
         return [];

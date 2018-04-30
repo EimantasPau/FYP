@@ -52,8 +52,19 @@
         directives: {
             'sticky': VueSticky
         },
+        mounted(){
+            this.listen();
+        },
         methods: {
-
+            listen() {
+                let userId =  this.$store.getters.user.id
+                console.log('listening? user: ' + userId)
+                Echo.private('users.' + userId)
+                    .listen('GroupCreated', (group) => {
+                        console.log('pusher is here')
+                        alert('New group' + group);
+                    });
+            }
         },
         created(){
             this.$store.dispatch('getTutors')

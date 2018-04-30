@@ -33,13 +33,20 @@ if (token) {
  * allows your team to easily build robust real-time web applications.
  */
 
-// import Echo from 'laravel-echo'
+import Echo from 'laravel-echo'
 
-// window.Pusher = require('pusher-js');
-
-// window.Echo = new Echo({
-//     broadcaster: 'pusher',
-//     key: process.env.MIX_PUSHER_APP_KEY,
-//     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
-//     encrypted: true
-// });
+window.Pusher = require('pusher-js')
+let authToken = localStorage.getItem('token')
+window.Echo = new Echo({
+    broadcaster: 'pusher',
+    key: '517ca63d88e07c3e10b7',
+    cluster: 'eu',
+    encrypted: true,
+    auth:
+        {
+            headers:
+                {
+                    'Authorization': 'Bearer ' + authToken
+                }
+        }
+});

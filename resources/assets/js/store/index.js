@@ -125,7 +125,6 @@ export const store = new Vuex.Store({
            axios.get('/api/users?token=' + token, payload)
                .then(response => {
                    commit('setLoading', false)
-                   console.log(JSON.stringify(response.data.tutors))
                    commit('setTutors', response.data.tutors)
                })
                .catch(errors => {

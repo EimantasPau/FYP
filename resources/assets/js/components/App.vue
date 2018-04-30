@@ -66,6 +66,9 @@
                 sideNav: false
             }
         },
+        created(){
+
+        },
         computed: {
             menuItems() {
                 let menuItems = [
@@ -79,6 +82,7 @@
                         { title: 'Home', link: '/'},
                         { title: 'Search tutors', link: '/tutors'},
                         { title: 'View courses', link: '/courses'},
+                        { title: 'Conversations', link: '/conversations'},
                         { title: 'My account', link: '/account'},
                     ]
                 }

@@ -48,3 +48,7 @@ Route::get('/coursetypes', 'CourseTypeController@index')->middleware('auth.jwt')
 
 Route::post('/questions', 'QuestionController@store')->middleware('auth.jwt');
 Route::get('/questions', 'QuestionController@index')->middleware('auth.jwt');
+
+//Route::get('/conversations', 'ConversationController@index')->middleware('auth.jwt');
+Route::post('/groups', 'GroupController@store')->middleware('auth.jwt');
+Route::get('/groups', 'GroupController@index')->middleware('auth.jwt');

@@ -65,7 +65,6 @@
                     this.$store.getters.tutors.forEach(tutor => {
                         if(tutor.owned_courses){
                             courses = courses.concat(tutor.owned_courses)
-                            console.log('Tutor course:' + tutor.owned_courses)
                         }
                     })
                 }
@@ -77,7 +76,6 @@
                 }
                 return this.courses.filter(course => {
                     for(let i = 0; i<course.tags.length; i++){
-                        // console.log(tutor.tags[i].name + ' search: ' + this.search)
                         if(course.tags[i].name.toLowerCase().includes(this.search.toLowerCase())){
                             return true
                         }
