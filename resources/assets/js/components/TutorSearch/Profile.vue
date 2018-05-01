@@ -39,6 +39,7 @@
 <script>
     import ProfileInfo from './ProfileInfo'
     import TutorCoursesInfo from './TutorCoursesInfo'
+    import axios from 'axios'
     export default {
         name: "TutorProfile",
         props: ['id'],
@@ -63,16 +64,14 @@
         methods: {
             startConversation() {
                 let formData = {
-
+                    user_id: this.profileUser.id
                 }
+                this.$store.dispatch('startConversation', formData)
             }
         },
         components:{
             ProfileInfo,
             TutorCoursesInfo
-        },
-        methods: {
-
         }
     }
 </script>

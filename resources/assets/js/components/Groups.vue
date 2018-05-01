@@ -14,8 +14,10 @@
                             </v-list>
                         </v-toolbar>
                         <v-list two-line v-if="user">
-                            <template v-for="(group, index) in groupsList">
-                                <v-list-tile avatar :key="group.id" @click="">
+                            <template v-for="group in groupsList">
+                                <v-list-tile avatar :key="group.id"
+                                             router
+                                             :to="'/conversations/' + group.id">
                                     <v-list-tile-avatar>
                                         <img :src="group.user.file ? '/storage/' + group.user.file.file_path : '/images/default-profile.png'" alt="avatar">
                                     </v-list-tile-avatar>
@@ -35,7 +37,7 @@
                                     <v-flex md12>
                                         <transition name="fade"
                                                     mode="out-in">
-
+                                            <router-view></router-view>
                                         </transition>
                                     </v-flex>
                                 </v-layout>
@@ -52,39 +54,48 @@
     export default {
         name: "Groups",
         data() {
-            return {
-                groups: null
-            }
+           return {
+
+           }
         },
         created() {
-            this.getGroups()
+            this.$store.dispatch('getConversations')
         },
         computed: {
             groupsList() {
-                let groups = []
+                let groupsList = []
 
                 if(this.groups != null && this.groups != undefined) {
-                    this.groups.forEach(group =>{
+                    this.groups.forEach(groupItem =>{
                         let groupObject = {
-                            id: group.id,
-                            user: group.users.find(user => user.id != this.user.id)
+                            id: groupItem.id,
+                            user: groupItem.users.find(user => user.id != this.user.id)
                         }
-                        groups.push(groupObject)
+                        groupsList.push(groupObject)
                     });
                 }
-                return groups
+                return groupsList
+            },
+            groups() {
+              return this.$store.getters.conversations
             },
             user() {
                 return this.$store.getters.user
             }
         },
         methods: {
-            getGroups() {
-                let token = localStorage.getItem('token')
-                axios.get('/api/groups?token=' + token)
-                    .then(response => {
-                        this.groups = response.data.groups
-                    })
+            listen() {
+                let userId =  this.$store.getters.user.id
+                console.log('listening: users.' + userId)
+                Echo.private('users.' + userId)
+                    .listen('GroupCreated', (e) => {
+                        this.$store.dispatch('addConversation', e)
+                    });
+            }
+        },
+        watch: {
+            user() {
+                this.listen()
             }
         }
     }

@@ -43,6 +43,7 @@ import CourseSearch from '../components/CourseSearch/CourseSearch'
 import Course from '../components/Course'
 import Lesson from '../components/Lesson'
 import Groups from '../components/Groups'
+import Conversation from '../components/Conversation'
 Vue.use(Router)
 
 export const router = new Router({
@@ -64,7 +65,14 @@ export const router = new Router({
         },
         {
             path: '/conversations',
-            component: Groups
+            component: Groups,
+            children: [
+                {
+                    path: ':id',
+                    component: Conversation,
+                    props: true
+                }
+            ]
         },
         {
             path: '/courses',

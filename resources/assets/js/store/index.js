@@ -11,6 +11,7 @@ export const store = new Vuex.Store({
        tutors: null,
        loading: false,
        uploading: false,
+       conversations: [],
        //errors from different forms
        errors: {
            signIn: null,
@@ -38,6 +39,17 @@ export const store = new Vuex.Store({
        },
        setTutors(state, payload) {
          state.tutors = payload
+       },
+       setConversations(state, payload) {
+         state.conversations = payload
+       },
+       addConversation(state, payload) {
+         state.conversations.push(payload)
+       },
+       addMessage(state, payload) {
+           let conv = state.conversations.find(conversation => conversation.id == payload.group_id)
+           conv.conversations.push(payload)
+
        },
        setLoading(state, payload) {
            state.loading = payload
@@ -132,13 +144,53 @@ export const store = new Vuex.Store({
                  console.log("Oops. Something went wrong.")
                })
        },
+       getConversations({commit}, payload) {
+           let token = localStorage.getItem('token')
+           axios.get('/api/groups?token=' + token)
+               .then(response => {
+                   commit('setConversations', response.data.groups)
+               })
+       },
+       addConversation({commit}, payload) {
+         commit('addConversation', payload)
+       },
+       addMessage({commit}, payload) {
+           let token = localStorage.getItem('token')
+           return new Promise((resolve, reject) => {
+               // Do something here... lets say, a http call using vue-resource
+               axios.post('/api/conversations?token=' + token, payload).then(response => {
+                   // http success, call the mutator and change something in state
+                   commit('addMessage', response.data.conversation)
+                   resolve(response);  // Let the calling function know that http is done. You may send some data back
+               }, error => {
+                   // http failed, let the calling function know that action did not work out
+                   reject(error);
+               })
+           })
+
+       },
+       startConversation({commit}, payload) {
+           let token = localStorage.getItem('token')
+           axios.post('/api/groups?token=' + token, payload)
+               .then(response => {
+                   // console.log(response.data.group)
+                   commit('addConversation', response.data.group)
+                   router.push('/conversations')
+               })
+               .catch(errors => {
+                   console.log(errors.data)
+                   alert('Conversation already started!')
+               })
+       },
+       insertMessage({commit}, payload) {
+         commit('addMessage', payload)
+       },
        //courses
        addCourse({commit}, payload) {
            commit('clearError', 'courseCreate')
            const token = localStorage.getItem('token')
            axios.post('/api/courses?token=' + token, payload)
                .then(response => {
-                   console.log(JSON.stringify(response.data.course))
                    commit('addCourse', response.data.course)
                    router.push('/account/courses')
                })
@@ -413,6 +465,9 @@ export const store = new Vuex.Store({
    getters: {
        tutors(state) {
            return state.tutors
+       },
+       conversations(state) {
+           return state.conversations
        },
        user(state) {
            return state.user
