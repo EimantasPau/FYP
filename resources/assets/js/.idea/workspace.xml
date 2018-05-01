@@ -41,11 +41,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Conversation.vue" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Conversation.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/components/Conversation.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="142">
-              <caret line="46" column="19" lean-forward="true" selection-start-line="46" selection-start-column="19" selection-end-line="46" selection-end-column="19" />
+            <state relative-caret-position="444">
+              <caret line="74" column="38" lean-forward="true" selection-start-line="74" selection-start-column="38" selection-end-line="74" selection-end-column="38" />
               <folding>
                 <element signature="n#style#0;n#v-layout#0;n#vue-scrollbar#0;n#div#0;n#template#0;n#!!top" expanded="true" />
               </folding>
@@ -56,8 +56,8 @@
       <file leaf-file-name="Profile.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/components/User/Profile.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
-              <caret line="58" column="131" lean-forward="true" selection-start-line="58" selection-start-column="43" selection-end-line="58" selection-end-column="131" />
+            <state relative-caret-position="231">
+              <caret line="57" column="28" lean-forward="true" selection-start-line="57" selection-start-column="28" selection-end-line="57" selection-end-column="28" />
             </state>
           </provider>
         </entry>
@@ -65,8 +65,20 @@
       <file leaf-file-name="Groups.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/components/Groups.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="341">
-              <caret line="89" column="47" lean-forward="true" selection-start-line="89" selection-start-column="47" selection-end-line="89" selection-end-column="47" />
+            <state relative-caret-position="239">
+              <caret line="76" column="33" lean-forward="true" selection-start-line="76" selection-start-column="33" selection-end-line="76" selection-end-column="33" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Profile.vue" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/components/TutorSearch/Profile.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="328">
+              <caret line="33" column="25" lean-forward="true" selection-start-line="33" selection-start-column="25" selection-end-line="33" selection-end-column="25" />
+              <folding>
+                <element signature="e#1762#1801#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -107,8 +119,8 @@
       <find>groups</find>
       <find>group</find>
       <find>startcon</find>
-      <find>wrapper</find>
       <find>inser</find>
+      <find>wrapper</find>
     </findStrings>
     <replaceStrings>
       <replace>&lt;h3 class=&quot;subheading&quot;&gt;</replace>
@@ -164,10 +176,10 @@
         <option value="$PROJECT_DIR$/components/App.vue" />
         <option value="$PROJECT_DIR$/components/TutorSearch/TutorSearch.vue" />
         <option value="$PROJECT_DIR$/router/index.js" />
-        <option value="$PROJECT_DIR$/components/TutorSearch/Profile.vue" />
         <option value="$PROJECT_DIR$/components/Groups.vue" />
         <option value="$PROJECT_DIR$/store/index.js" />
         <option value="$PROJECT_DIR$/components/Conversation.vue" />
+        <option value="$PROJECT_DIR$/components/TutorSearch/Profile.vue" />
       </list>
     </option>
   </component>
@@ -184,10 +196,9 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1912" />
-    <option name="y" value="-8" />
-    <option name="width" value="1936" />
-    <option name="height" value="1056" />
+    <option name="x" value="2873" />
+    <option name="width" value="974" />
+    <option name="height" value="1047" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -201,6 +212,17 @@
             <path>
               <item name="js" type="b2602c69:ProjectViewProjectNode" />
               <item name="js" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="js" type="b2602c69:ProjectViewProjectNode" />
+              <item name="js" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="components" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="js" type="b2602c69:ProjectViewProjectNode" />
+              <item name="js" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="components" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="TutorSearch" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
               <item name="js" type="b2602c69:ProjectViewProjectNode" />
@@ -270,18 +292,18 @@
       <workItem from="1524914604749" duration="35687000" />
       <workItem from="1524996794993" duration="40433000" />
       <workItem from="1525081975604" duration="26790000" />
-      <workItem from="1525168650075" duration="19922000" />
+      <workItem from="1525168650075" duration="22290000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="286276000" />
+    <option name="totallyTimeSpent" value="288644000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1912" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15565032" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.15565032" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
@@ -290,7 +312,7 @@
       <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.24252492" />
+      <window_info anchor="bottom" id="Terminal" order="7" visible="true" weight="0.12735327" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -604,34 +626,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/components/TutorSearch/Profile.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="496">
-          <caret line="68" column="63" selection-start-line="68" selection-start-column="63" selection-end-line="68" selection-end-column="63" />
-          <folding>
-            <element signature="e#1762#1801#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/components/User/Experience/ExperienceIndex.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="166">
           <caret line="46" column="22" selection-start-line="45" selection-start-column="12" selection-end-line="47" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/components/Groups.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="341">
-          <caret line="89" column="47" lean-forward="true" selection-start-line="89" selection-start-column="47" selection-end-line="89" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/components/User/Profile.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="58" column="131" lean-forward="true" selection-start-line="58" selection-start-column="43" selection-end-line="58" selection-end-column="131" />
         </state>
       </provider>
     </entry>
@@ -664,10 +662,34 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/components/Conversation.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="142">
-          <caret line="46" column="19" lean-forward="true" selection-start-line="46" selection-start-column="19" selection-end-line="46" selection-end-column="19" />
+        <state relative-caret-position="444">
+          <caret line="74" column="38" lean-forward="true" selection-start-line="74" selection-start-column="38" selection-end-line="74" selection-end-column="38" />
           <folding>
             <element signature="n#style#0;n#v-layout#0;n#vue-scrollbar#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/components/Groups.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="239">
+          <caret line="76" column="33" lean-forward="true" selection-start-line="76" selection-start-column="33" selection-end-line="76" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/components/User/Profile.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="57" column="28" lean-forward="true" selection-start-line="57" selection-start-column="28" selection-end-line="57" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/components/TutorSearch/Profile.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="328">
+          <caret line="33" column="25" lean-forward="true" selection-start-line="33" selection-start-column="25" selection-end-line="33" selection-end-column="25" />
+          <folding>
+            <element signature="e#1762#1801#0" expanded="true" />
           </folding>
         </state>
       </provider>
