@@ -22,7 +22,8 @@ class GroupController extends Controller
 
     public function store(Request $request)
     {
-        $userWith = User::findOrFail($request->input('user_id'));
+        $user_id = $request->input('user_id');
+        $userWith = User::findOrFail($user_id);
         $currentUser = User::findOrFail(auth()->id());
         $existingUserGroups = User::find($currentUser->id)->groups()->with('users')->get();
         foreach($existingUserGroups as $group){
@@ -37,9 +38,10 @@ class GroupController extends Controller
         $group->save();
         $group->users()->attach($users);
 
+        $groupWithUsers = Group::findOrFail($group->id);
         broadcast(new GroupCreated($group));
         return response()->json([
-            'group' => $group
+            'group' => $groupWithUsers
         ]);
     }
 }

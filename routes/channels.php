@@ -12,7 +12,17 @@
 */
 
 
+use App\Group;
+
 Broadcast::channel('users.{id}', function ($user, $id) {
+    return true;
+});
+
+Broadcast::channel('groups.{group}', function ($user, Group $group) {
+    foreach($group->users as $user){
+        if($user->id == $user->id)
+            return true;
+    }
     return true;
 });
 

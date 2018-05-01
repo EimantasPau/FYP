@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Conversation;
+use App\Events\MessageCreated;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -35,7 +37,15 @@ class ConversationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $conversation = Conversation::create([
+            'message' => $request->input('message'),
+            'group_id' => $request->input('group_id'),
+            'user_id' => auth()->user()->id
+        ]);
+        broadcast(new MessageCreated($conversation))->toOthers();
+        return response()->json([
+            'conversation' => $conversation->load('user')
+        ]);
     }
 
     /**
