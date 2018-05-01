@@ -19,8 +19,8 @@ Broadcast::channel('users.{id}', function ($user, $id) {
 });
 
 Broadcast::channel('groups.{group}', function ($user, Group $group) {
-    foreach($group->users as $user){
-        if($user->id == $user->id)
+    foreach($group->users as $groupUser){
+        if($groupUser->id == $user->id)
             return true;
     }
     return true;
