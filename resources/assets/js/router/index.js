@@ -56,37 +56,44 @@ export const router = new Router({
         {
             path: '/profile/:id',
             component: TutorProfile,
-            props: true
+            props: true,
+            beforeEnter: AuthGuard
         },
         {
             path: '/tutors',
             component: TutorSearch,
-            name: 'Tutors'
+            name: 'Tutors',
+            beforeEnter: AuthGuard
         },
         {
             path: '/conversations',
             component: Groups,
+            beforeEnter: AuthGuard,
             children: [
                 {
                     path: ':id',
                     component: Conversation,
-                    props: true
+                    props: true,
+                    beforeEnter: AuthGuard
                 }
             ]
         },
         {
             path: '/courses',
-            component: CourseSearch
+            component: CourseSearch,
+            beforeEnter: AuthGuard
         },
         {
             path: '/courses/:id',
             component: Course,
-            props: true
+            props: true,
+            beforeEnter: AuthGuard
         },
         {
             path: '/lessons/:id',
             component: Lesson,
-            props: true
+            props: true,
+            beforeEnter: AuthGuard
         },
         {
           path: '/privacy',

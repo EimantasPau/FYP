@@ -130,7 +130,7 @@ class UserController extends Controller
             $user->file()->save($file);
         }
 
-        $user = User::findOrFail($userID);
+        $user = User::where('id',auth()->id())->with('ownedCourses')->get()->first();
 
         return response()->json([
             'message' => 'Successfully updated user!',

@@ -94,8 +94,8 @@
             footerLinks() {
                 let footerLinks = [
                     {title: 'Home', link: '/'},
-                    {title: 'Tutors', link: ''},
-                    {title: 'Courses', link: ''},
+                    {title: 'Tutors', link: '/tutors'},
+                    {title: 'Courses', link: '/courses'},
                     {title: 'Account', link: '/account'},
                     {title: 'Privacy policy', link: '/privacy'},
                 ]

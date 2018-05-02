@@ -1,11 +1,11 @@
 <template>
-   <div>
+   <div v-if="user">
        <h1 class="grey--text text--darken-1">Talking to {{userWith.name}}</h1>
        <v-divider></v-divider>
 
-           <v-layout row style="max-height: 80vh; overflow-y:auto">
+           <v-layout row style="max-height: 100vh; overflow-y:auto">
                <vue-scrollbar ref="Scrollbar">
-               <v-flex id="messageContainer">
+               <v-flex id="messageContainer" v-if="conversation">
                    <div :key="message.id" v-for="message in conversation.conversations" class="container" :class="{darker: message.user_id != user.id}">
                        <template v-if="message.user_id == userWith.id">
                            <img :src="userWith.file ? '/storage/' + userWith.file.file_path : '/images/default-profile.png'" alt="Avatar">
@@ -44,11 +44,11 @@
                 message: ''
             }
         },
-        mounted() {
-            this.listen()
+        created() {
             this.$nextTick(function () {
                 let currentHeight = document.getElementById('messageContainer').scrollHeight;
                 this.$refs.Scrollbar.scrollToY(currentHeight)
+
             })
         },
         components:{
@@ -57,8 +57,6 @@
         computed: {
             conversation() {
                 return this.$store.getters.conversations.find(conversation => conversation.id == this.id)
-                let currentHeight = document.getElementById('messageContainer').scrollHeight;
-                this.$refs.Scrollbar.scrollToY(currentHeight)
             },
             user() {
                 return this.$store.getters.user
@@ -68,19 +66,6 @@
             }
         },
         methods: {
-            listen() {
-                console.log('listening. groups.' + this.id)
-                Echo.private('groups.' + this.id)
-                    .listen('MessageCreated', (e) => {
-                        console.log(e)
-                        this.$store.dispatch('insertMessage', e.conversation).
-                            then(()=>{
-                            let currentHeight = document.getElementById('messageContainer').scrollHeight;
-                            this.$refs.Scrollbar.scrollToY(currentHeight)
-                        })
-
-                    });
-            },
             sendMessage() {
                 let formData = {
                     message: this.message,
@@ -96,11 +81,7 @@
 
             }
         },
-        watch:{
-            id() {
-                this.listen()
-            }
-        }
+
 
     }
 </script>

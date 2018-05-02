@@ -1,5 +1,5 @@
 <template>
-    <v-content>
+    <v-content v-if="user && groups">
         <v-container fill-height grid-list-md>
             <v-layout row wrap>
                 <v-flex xs12 md3>
@@ -13,7 +13,7 @@
                                 </v-list-tile>
                             </v-list>
                         </v-toolbar>
-                        <v-list two-line v-if="user">
+                        <v-list two-line>
                             <template v-for="group in groupsList">
                                 <v-list-tile avatar :key="group.id"
                                              router
@@ -60,6 +60,18 @@
         },
         created() {
             this.$store.dispatch('getConversations')
+                .then(()=>{
+                    this.listen()
+                })
+        },
+        beforeDestroy(){
+            let userId =  this.$store.getters.user.id
+            console.log('leaving: users.' + userId)
+            Echo.leave('users.' + userId)
+            this.groups.forEach(chat =>{
+                console.log('leaving: groups.' + chat.id)
+                Echo.leave('groups.' + chat.id)
+            })
         },
         computed: {
             groupsList() {
@@ -91,11 +103,22 @@
                     .listen('GroupCreated', (e) => {
                         this.$store.dispatch('addConversation', e)
                     });
-            }
-        },
-        watch: {
-            user() {
-                this.listen()
+                this.groups.forEach(chat =>{
+                    console.log('listening: groups.' + chat.id)
+                    Echo.private('groups.' + chat.id)
+                        .listen('MessageCreated', (e) => {
+                            console.log(e)
+                            this.$store.dispatch('insertMessage', e.conversation)
+                                .then(()=>{
+                                    let currentHeight = document.getElementById('messageContainer').scrollHeight;
+                                    if(currentHeight){
+                                        this.$refs.Scrollbar.scrollToY(currentHeight)
+                                    }
+
+                                })
+                        });
+                })
+
             }
         }
     }
