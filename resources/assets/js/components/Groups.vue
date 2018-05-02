@@ -14,15 +14,15 @@
                             </v-list>
                         </v-toolbar>
                         <v-list two-line>
-                            <template v-for="group in groupsList">
+                            <template v-for="group in groups">
                                 <v-list-tile avatar :key="group.id"
                                              router
                                              :to="'/conversations/' + group.id">
                                     <v-list-tile-avatar>
-                                        <img :src="group.user.file ? '/storage/' + group.user.file.file_path : '/images/default-profile.png'" alt="avatar">
+                                        <img :src="group.users.find(otherUser=> otherUser.id != user.id).file ? '/storage/' + group.users.find(otherUser=> otherUser.id != user.id).file.file_path : '/images/default-profile.png'" alt="avatar">
                                     </v-list-tile-avatar>
                                     <v-list-tile-content>
-                                        <v-list-tile-title v-html="group.user.name"></v-list-tile-title>
+                                        <v-list-tile-title v-html="group.users.find(otherUser=> otherUser.id != user.id).name"></v-list-tile-title>
                                     </v-list-tile-content>
                                 </v-list-tile>
                             </template>
@@ -74,22 +74,8 @@
             })
         },
         computed: {
-            groupsList() {
-                let groupsList = []
-
-                if(this.groups != null && this.groups != undefined) {
-                    this.groups.forEach(groupItem =>{
-                        let groupObject = {
-                            id: groupItem.id,
-                            user: groupItem.users.find(user => user.id != this.user.id)
-                        }
-                        groupsList.push(groupObject)
-                    });
-                }
-                return groupsList
-            },
             groups() {
-              return this.$store.getters.conversations
+                return this.$store.getters.conversations
             },
             user() {
                 return this.$store.getters.user
@@ -103,7 +89,15 @@
                     .listen('GroupCreated', (e) => {
                         this.$store.dispatch('addConversation', e)
                     });
-                this.groups.forEach(chat =>{
+            }
+        },
+        watch: {
+            groups(groups) {
+                groups.forEach(chat =>{
+                    console.log('leaving: groups.' + chat.id)
+                    Echo.leave('groups.' + chat.id)
+                })
+                groups.forEach(chat =>{
                     console.log('listening: groups.' + chat.id)
                     Echo.private('groups.' + chat.id)
                         .listen('MessageCreated', (e) => {

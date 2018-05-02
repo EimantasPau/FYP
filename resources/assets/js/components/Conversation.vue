@@ -1,11 +1,11 @@
 <template>
-   <div v-if="user">
+   <div v-if="user && conversation">
        <h1 class="grey--text text--darken-1">Talking to {{userWith.name}}</h1>
        <v-divider></v-divider>
 
            <v-layout row style="max-height: 100vh; overflow-y:auto">
                <vue-scrollbar ref="Scrollbar">
-               <v-flex id="messageContainer" v-if="conversation">
+               <v-flex id="messageContainer">
                    <div :key="message.id" v-for="message in conversation.conversations" class="container" :class="{darker: message.user_id != user.id}">
                        <template v-if="message.user_id == userWith.id">
                            <img :src="userWith.file ? '/storage/' + userWith.file.file_path : '/images/default-profile.png'" alt="Avatar">
@@ -44,12 +44,9 @@
                 message: ''
             }
         },
-        created() {
-            this.$nextTick(function () {
-                let currentHeight = document.getElementById('messageContainer').scrollHeight;
-                this.$refs.Scrollbar.scrollToY(currentHeight)
-
-            })
+        updated() {
+            let currentHeight = document.getElementById('messageContainer').scrollHeight;
+            this.$refs.Scrollbar.scrollToY(currentHeight)
         },
         components:{
             VueScrollbar

@@ -48555,7 +48555,7 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
             state.conversations = payload;
         },
         addConversation: function addConversation(state, payload) {
-            state.conversations.push(payload);
+            state.conversations.push(payload.group);
         },
         addMessage: function addMessage(state, payload) {
             var conv = state.conversations.find(function (conversation) {
@@ -48713,7 +48713,7 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
             var token = localStorage.getItem('token');
             __WEBPACK_IMPORTED_MODULE_2_axios___default.a.post('/api/groups?token=' + token, payload).then(function (response) {
                 // console.log(response.data.group)
-                commit('addConversation', response.data.group);
+                // commit('addConversation', response.data.group)
                 __WEBPACK_IMPORTED_MODULE_3__router_index__["a" /* router */].push('/conversations');
             }).catch(function (errors) {
                 console.log(errors.data);
@@ -91272,7 +91272,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -91359,24 +91359,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     computed: {
-        groupsList: function groupsList() {
-            var _this2 = this;
-
-            var groupsList = [];
-
-            if (this.groups != null && this.groups != undefined) {
-                this.groups.forEach(function (groupItem) {
-                    var groupObject = {
-                        id: groupItem.id,
-                        user: groupItem.users.find(function (user) {
-                            return user.id != _this2.user.id;
-                        })
-                    };
-                    groupsList.push(groupObject);
-                });
-            }
-            return groupsList;
-        },
         groups: function groups() {
             return this.$store.getters.conversations;
         },
@@ -91386,14 +91368,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     methods: {
         listen: function listen() {
-            var _this3 = this;
+            var _this2 = this;
 
             var userId = this.$store.getters.user.id;
             console.log('listening: users.' + userId);
             Echo.private('users.' + userId).listen('GroupCreated', function (e) {
-                _this3.$store.dispatch('addConversation', e);
+                _this2.$store.dispatch('addConversation', e);
             });
-            this.groups.forEach(function (chat) {
+        }
+    },
+    watch: {
+        groups: function groups(_groups) {
+            var _this3 = this;
+
+            _groups.forEach(function (chat) {
+                console.log('leaving: groups.' + chat.id);
+                Echo.leave('groups.' + chat.id);
+            });
+            _groups.forEach(function (chat) {
                 console.log('listening: groups.' + chat.id);
                 Echo.private('groups.' + chat.id).listen('MessageCreated', function (e) {
                     console.log(e);
@@ -91471,7 +91463,7 @@ var render = function() {
                             "v-list",
                             { attrs: { "two-line": "" } },
                             [
-                              _vm._l(_vm.groupsList, function(group) {
+                              _vm._l(_vm.groups, function(group) {
                                 return [
                                   _c(
                                     "v-list-tile",
@@ -91487,9 +91479,19 @@ var render = function() {
                                       _c("v-list-tile-avatar", [
                                         _c("img", {
                                           attrs: {
-                                            src: group.user.file
+                                            src: group.users.find(function(
+                                              otherUser
+                                            ) {
+                                              return otherUser.id != _vm.user.id
+                                            }).file
                                               ? "/storage/" +
-                                                group.user.file.file_path
+                                                group.users.find(function(
+                                                  otherUser
+                                                ) {
+                                                  return (
+                                                    otherUser.id != _vm.user.id
+                                                  )
+                                                }).file.file_path
                                               : "/images/default-profile.png",
                                             alt: "avatar"
                                           }
@@ -91501,7 +91503,15 @@ var render = function() {
                                         [
                                           _c("v-list-tile-title", {
                                             domProps: {
-                                              innerHTML: _vm._s(group.user.name)
+                                              innerHTML: _vm._s(
+                                                group.users.find(function(
+                                                  otherUser
+                                                ) {
+                                                  return (
+                                                    otherUser.id != _vm.user.id
+                                                  )
+                                                }).name
+                                              )
                                             }
                                           })
                                         ],
@@ -91746,11 +91756,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             message: ''
         };
     },
-    created: function created() {
-        this.$nextTick(function () {
-            var currentHeight = document.getElementById('messageContainer').scrollHeight;
-            this.$refs.Scrollbar.scrollToY(currentHeight);
-        });
+    updated: function updated() {
+        var currentHeight = document.getElementById('messageContainer').scrollHeight;
+        this.$refs.Scrollbar.scrollToY(currentHeight);
     },
 
     components: {
@@ -92948,7 +92956,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm.user
+  return _vm.user && _vm.conversation
     ? _c(
         "div",
         [
@@ -92969,56 +92977,51 @@ var render = function() {
                 "vue-scrollbar",
                 { ref: "Scrollbar" },
                 [
-                  _vm.conversation
-                    ? _c(
-                        "v-flex",
-                        { attrs: { id: "messageContainer" } },
-                        _vm._l(_vm.conversation.conversations, function(
-                          message
-                        ) {
-                          return _c(
-                            "div",
-                            {
-                              key: message.id,
-                              staticClass: "container",
-                              class: { darker: message.user_id != _vm.user.id }
-                            },
-                            [
-                              message.user_id == _vm.userWith.id
-                                ? [
-                                    _c("img", {
-                                      attrs: {
-                                        src: _vm.userWith.file
-                                          ? "/storage/" +
-                                            _vm.userWith.file.file_path
-                                          : "/images/default-profile.png",
-                                        alt: "Avatar"
-                                      }
-                                    })
-                                  ]
-                                : [
-                                    _c("img", {
-                                      attrs: {
-                                        src: _vm.user.file
-                                          ? "/storage/" +
-                                            _vm.user.file.file_path
-                                          : "/images/default-profile.png",
-                                        alt: "Avatar"
-                                      }
-                                    })
-                                  ],
-                              _vm._v(" "),
-                              _c("p", [_vm._v(_vm._s(message.message))]),
-                              _vm._v(" "),
-                              _c("span", { staticClass: "time-right" }, [
-                                _vm._v(_vm._s(message.created_at))
-                              ])
-                            ],
-                            2
-                          )
-                        })
+                  _c(
+                    "v-flex",
+                    { attrs: { id: "messageContainer" } },
+                    _vm._l(_vm.conversation.conversations, function(message) {
+                      return _c(
+                        "div",
+                        {
+                          key: message.id,
+                          staticClass: "container",
+                          class: { darker: message.user_id != _vm.user.id }
+                        },
+                        [
+                          message.user_id == _vm.userWith.id
+                            ? [
+                                _c("img", {
+                                  attrs: {
+                                    src: _vm.userWith.file
+                                      ? "/storage/" +
+                                        _vm.userWith.file.file_path
+                                      : "/images/default-profile.png",
+                                    alt: "Avatar"
+                                  }
+                                })
+                              ]
+                            : [
+                                _c("img", {
+                                  attrs: {
+                                    src: _vm.user.file
+                                      ? "/storage/" + _vm.user.file.file_path
+                                      : "/images/default-profile.png",
+                                    alt: "Avatar"
+                                  }
+                                })
+                              ],
+                          _vm._v(" "),
+                          _c("p", [_vm._v(_vm._s(message.message))]),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "time-right" }, [
+                            _vm._v(_vm._s(message.created_at))
+                          ])
+                        ],
+                        2
                       )
-                    : _vm._e()
+                    })
+                  )
                 ],
                 1
               )

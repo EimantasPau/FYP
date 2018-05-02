@@ -44,7 +44,7 @@ export const store = new Vuex.Store({
          state.conversations = payload
        },
        addConversation(state, payload) {
-         state.conversations.push(payload)
+         state.conversations.push(payload.group)
        },
        addMessage(state, payload) {
            let conv = state.conversations.find(conversation => conversation.id == payload.group_id)
@@ -181,7 +181,7 @@ export const store = new Vuex.Store({
            axios.post('/api/groups?token=' + token, payload)
                .then(response => {
                    // console.log(response.data.group)
-                   commit('addConversation', response.data.group)
+                   // commit('addConversation', response.data.group)
                    router.push('/conversations')
                })
                .catch(errors => {

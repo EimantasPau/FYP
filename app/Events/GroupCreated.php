@@ -40,11 +40,4 @@ class GroupCreated implements ShouldBroadcast
 
         return $channels;
     }
-
-    public function broadcastWith() {
-        return [
-            'id' => $this->group->id,
-            'users' => $this->group->users,
-            ];
-    }
 }

@@ -15,7 +15,7 @@ class BroadcastServiceProvider extends ServiceProvider
     public function boot()
     {
         $attributes = [
-            'middleware'=>'auth.jwt'
+            'middleware'=>'auth:api'
         ];
         Broadcast::routes($attributes);
 
