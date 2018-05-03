@@ -92969,7 +92969,7 @@ var render = function() {
           _c(
             "v-layout",
             {
-              staticStyle: { "max-height": "100vh", "overflow-y": "auto" },
+              staticStyle: { "max-height": "50vh", "overflow-y": "auto" },
               attrs: { row: "" }
             },
             [
@@ -93258,6 +93258,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: "app",
@@ -93270,10 +93273,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     computed: {
         menuItems: function menuItems() {
-            var menuItems = [{ title: 'Home', link: '/' }, { title: 'Sign in', link: '/signin' }, { title: 'Sign up', link: '/signup' }];
+            var menuItems = [{ title: 'Sign in', link: '/signin' }, { title: 'Sign up', link: '/signup' }];
 
             if (this.userIsAuthenticated) {
-                menuItems = [{ title: 'Home', link: '/' }, { title: 'Search tutors', link: '/tutors' }, { title: 'View courses', link: '/courses' }, { title: 'Conversations', link: '/conversations' }, { title: 'My account', link: '/account' }];
+                menuItems = [{ title: 'Search tutors', link: '/tutors' }, { title: 'View courses', link: '/courses' }, { title: 'Conversations', link: '/conversations' }, { title: 'My account', link: '/account' }];
             }
             return menuItems;
         },
@@ -93281,7 +93284,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             return this.$store.getters.user !== null && this.$store.getters.user !== undefined;
         },
         footerLinks: function footerLinks() {
-            var footerLinks = [{ title: 'Home', link: '/' }, { title: 'Tutors', link: '/tutors' }, { title: 'Courses', link: '/courses' }, { title: 'Account', link: '/account' }, { title: 'Privacy policy', link: '/privacy' }];
+            var footerLinks = [{ title: 'Tutors', link: '/tutors' }, { title: 'Courses', link: '/courses' }, { title: 'Account', link: '/account' }, { title: 'Privacy policy', link: '/privacy' }];
             return footerLinks;
         }
     },
@@ -93387,7 +93390,28 @@ var render = function() {
             }
           }),
           _vm._v(" "),
-          _c("v-toolbar-title", [_vm._v("Educational platform")]),
+          _c(
+            "router-link",
+            { attrs: { tag: "v-toolbar-title", to: "/" } },
+            [
+              _c(
+                "v-toolbar-title",
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "btn__content",
+                      staticStyle: { cursor: "pointer" },
+                      attrs: { tag: "div", to: "/" }
+                    },
+                    [_vm._v("Educational platform")]
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          ),
           _vm._v(" "),
           _c("v-spacer"),
           _vm._v(" "),

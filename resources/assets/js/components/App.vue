@@ -23,7 +23,10 @@
         </v-navigation-drawer>
         <v-toolbar dark class="grey darken-3">
             <v-toolbar-side-icon class="hidden-md-and-up" @click="sideNav = !sideNav"></v-toolbar-side-icon>
-            <v-toolbar-title>Educational platform</v-toolbar-title>
+            <router-link tag="v-toolbar-title" to="/">
+                <v-toolbar-title><router-link style="cursor:pointer" tag="div" class="btn__content" to="/">Educational platform</router-link></v-toolbar-title>
+            </router-link>
+
             <v-spacer></v-spacer>
             <v-toolbar-items class="hidden-sm-and-down">
                 <v-btn v-for="item in menuItems"
@@ -72,14 +75,12 @@
         computed: {
             menuItems() {
                 let menuItems = [
-                    { title: 'Home', link: '/'},
                     { title: 'Sign in', link: '/signin'},
                     { title: 'Sign up', link: '/signup'},
                 ]
 
                 if(this.userIsAuthenticated) {
                     menuItems = [
-                        { title: 'Home', link: '/'},
                         { title: 'Search tutors', link: '/tutors'},
                         { title: 'View courses', link: '/courses'},
                         { title: 'Conversations', link: '/conversations'},
@@ -93,7 +94,6 @@
             },
             footerLinks() {
                 let footerLinks = [
-                    {title: 'Home', link: '/'},
                     {title: 'Tutors', link: '/tutors'},
                     {title: 'Courses', link: '/courses'},
                     {title: 'Account', link: '/account'},

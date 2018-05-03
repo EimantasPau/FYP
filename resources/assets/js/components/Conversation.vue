@@ -1,10 +1,11 @@
 <template>
    <div v-if="user && conversation">
        <h1 class="grey--text text--darken-1">Talking to {{userWith.name}}</h1>
+       <v-btn @click="startVideo">Start video chat</v-btn>
        <v-divider></v-divider>
 
-           <v-layout row style="max-height: 100vh; overflow-y:auto">
-               <vue-scrollbar ref="Scrollbar">
+       <v-layout row style="max-height: 50vh; overflow-y:auto">
+           <vue-scrollbar ref="Scrollbar">
                <v-flex id="messageContainer">
                    <div :key="message.id" v-for="message in conversation.conversations" class="container" :class="{darker: message.user_id != user.id}">
                        <template v-if="message.user_id == userWith.id">
@@ -17,8 +18,8 @@
                        <span class="time-right">{{message.created_at}}</span>
                    </div>
                </v-flex>
-               </vue-scrollbar>
-           </v-layout>
+           </vue-scrollbar>
+       </v-layout>
 
        <v-layout row>
            <v-flex>
