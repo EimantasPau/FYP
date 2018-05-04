@@ -80552,6 +80552,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "v-container",
+    { attrs: { "px-0": "", "mx-0": "" } },
     [
       _c(
         "h1",
@@ -81071,7 +81072,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "v-container",
-    { attrs: { "px-0": "" } },
+    { attrs: { "px-0": "", "mx-0": "" } },
     [
       _c(
         "h1",
@@ -81530,6 +81531,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "v-container",
+    { attrs: { "px-0": "", "mx-0": "" } },
     [
       _c(
         "h1",
@@ -82296,6 +82298,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "v-container",
+    { attrs: { "px-0": "", "mx-0": "" } },
     [
       _c(
         "h1",
@@ -82820,7 +82823,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "v-container",
-    { attrs: { "px-0": "" } },
+    { attrs: { "px-0": "", "mx-0": "" } },
     [
       _c(
         "h1",
@@ -83299,6 +83302,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "v-container",
+    { attrs: { "px-0": "", "mx-0": "" } },
     [
       _c(
         "h1",
@@ -84715,6 +84719,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "v-container",
+    { attrs: { "px-0": "", "mx-0": "" } },
     [
       _c(
         "h1",
@@ -85117,7 +85122,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "v-container",
-    { attrs: { "px-0": "" } },
+    { attrs: { "px-0": "", "mx-0": "" } },
     [
       _c(
         "h2",
@@ -85566,6 +85571,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "v-container",
+    { attrs: { "px-0": "", "mx-0": "" } },
     [
       _c(
         "h1",
@@ -85991,7 +85997,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "v-container",
-    { attrs: { "px-0": "" } },
+    { attrs: { "px-0": "", "mx-0": "" } },
     [
       _c(
         "h2",
@@ -86421,6 +86427,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "v-container",
+    { attrs: { "px-0": "", "mx-0": "" } },
     [
       _c(
         "h1",
@@ -86850,6 +86857,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "v-container",
+    { attrs: { "px-0": "", "mx-0": "" } },
     [
       _c(
         "h1",
@@ -93183,7 +93191,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -93194,7 +93202,6 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
 //
 //
 //
@@ -93386,28 +93393,7 @@ var render = function() {
             }
           }),
           _vm._v(" "),
-          _c(
-            "router-link",
-            { attrs: { tag: "v-toolbar-title", to: "/" } },
-            [
-              _c(
-                "v-toolbar-title",
-                [
-                  _c(
-                    "router-link",
-                    {
-                      staticClass: "btn__content",
-                      staticStyle: { cursor: "pointer" },
-                      attrs: { tag: "div", to: "/" }
-                    },
-                    [_vm._v("Educational platform")]
-                  )
-                ],
-                1
-              )
-            ],
-            1
-          ),
+          _c("v-toolbar-title", [_vm._v("Education Plus")]),
           _vm._v(" "),
           _c("v-spacer"),
           _vm._v(" "),

@@ -23,9 +23,8 @@
         </v-navigation-drawer>
         <v-toolbar dark class="grey darken-3">
             <v-toolbar-side-icon class="hidden-md-and-up" @click="sideNav = !sideNav"></v-toolbar-side-icon>
-            <router-link tag="v-toolbar-title" to="/">
-                <v-toolbar-title><router-link style="cursor:pointer" tag="div" class="btn__content" to="/">Educational platform</router-link></v-toolbar-title>
-            </router-link>
+            <v-toolbar-title>Education Plus</v-toolbar-title>
+
 
             <v-spacer></v-spacer>
             <v-toolbar-items class="hidden-sm-and-down">

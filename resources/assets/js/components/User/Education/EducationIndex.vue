@@ -1,5 +1,5 @@
 <template>
-    <v-container px-0>
+    <v-container px-0 mx-0>
         <h1 class="display-1 grey--text text--darken-1">Education <v-btn fab small color="success" router to="/account/education/create"><v-icon medium color="white">add</v-icon ></v-btn></h1>
         <blockquote class="blockquote">Add your education or training that you did.</blockquote>
         <blockquote v-if="education.length <= 0" class="blockquote">You currently haven't added any education.</blockquote>

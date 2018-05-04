@@ -1,5 +1,5 @@
 <template>
-    <v-container px-0>
+    <v-container px-0 mx-0>
         <h1 class="display-1 grey--text text--darken-1">Experience <v-btn fab small color="light-blue accent-4" router to="/account/experience/create"><v-icon medium color="white">add</v-icon ></v-btn></h1>
         <blockquote class="blockquote">Add previous or current work experience.</blockquote>
         <blockquote v-if="experience.length <= 0" class="blockquote">You currently haven't added any experience.</blockquote>

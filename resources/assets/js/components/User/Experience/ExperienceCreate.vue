@@ -1,5 +1,5 @@
 <template>
-    <v-container>
+    <v-container px-0 mx-0>
         <h1 class="display-1 grey--text text--darken-1"> <v-btn fab small color="primary" router to="/account/experience"><v-icon medium color="white">arrow_back</v-icon ></v-btn> Add experience</h1>
         <transition name="fade" mode="out-in">
             <app-alert v-if="errors" @dismissed="onDismissed" :text="errors"></app-alert>
