@@ -91756,9 +91756,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             message: ''
         };
     },
+    mounted: function mounted() {
+        var div = document.getElementById('messageContainer');
+        div.scrollTop = div.scrollHeight;
+    },
     updated: function updated() {
-        var currentHeight = document.getElementById('messageContainer').scrollHeight;
-        this.$refs.Scrollbar.scrollToY(currentHeight);
+        var div = document.getElementById('messageContainer');
+        div.scrollTop = div.scrollHeight;
     },
 
     components: {
@@ -91785,16 +91789,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     methods: {
         sendMessage: function sendMessage() {
-            var _this3 = this;
-
             var formData = {
                 message: this.message,
                 group_id: this.id
             };
             this.message = '';
             this.$store.dispatch('addMessage', formData).then(function () {
-                var currentHeight = document.getElementById('messageContainer').scrollHeight;
-                _this3.$refs.Scrollbar.scrollToY(currentHeight);
+                var div = document.getElementById('messageContainer');
+                div.scrollTop = div.scrollHeight - div.clientHeight;
+                // let currentHeight = document.getElementById('messageContainer').scrollHeight;
+                // this.$refs.Scrollbar.scrollToY(currentHeight)
             });
         }
     }
@@ -92968,62 +92972,54 @@ var render = function() {
           _vm._v(" "),
           _c(
             "v-layout",
-            {
-              staticStyle: { "max-height": "50vh", "overflow-y": "auto" },
-              attrs: { row: "" }
-            },
+            { attrs: { row: "" } },
             [
               _c(
-                "vue-scrollbar",
-                { ref: "Scrollbar" },
-                [
-                  _c(
-                    "v-flex",
-                    { attrs: { id: "messageContainer" } },
-                    _vm._l(_vm.conversation.conversations, function(message) {
-                      return _c(
-                        "div",
-                        {
-                          key: message.id,
-                          staticClass: "container",
-                          class: { darker: message.user_id != _vm.user.id }
-                        },
-                        [
-                          message.user_id == _vm.userWith.id
-                            ? [
-                                _c("img", {
-                                  attrs: {
-                                    src: _vm.userWith.file
-                                      ? "/storage/" +
-                                        _vm.userWith.file.file_path
-                                      : "/images/default-profile.png",
-                                    alt: "Avatar"
-                                  }
-                                })
-                              ]
-                            : [
-                                _c("img", {
-                                  attrs: {
-                                    src: _vm.user.file
-                                      ? "/storage/" + _vm.user.file.file_path
-                                      : "/images/default-profile.png",
-                                    alt: "Avatar"
-                                  }
-                                })
-                              ],
-                          _vm._v(" "),
-                          _c("p", [_vm._v(_vm._s(message.message))]),
-                          _vm._v(" "),
-                          _c("span", { staticClass: "time-right" }, [
-                            _vm._v(_vm._s(message.created_at))
-                          ])
-                        ],
-                        2
-                      )
-                    })
+                "v-flex",
+                {
+                  staticStyle: { "max-height": "50vh", "overflow-y": "auto" },
+                  attrs: { id: "messageContainer" }
+                },
+                _vm._l(_vm.conversation.conversations, function(message) {
+                  return _c(
+                    "div",
+                    {
+                      key: message.id,
+                      staticClass: "container",
+                      class: { darker: message.user_id != _vm.user.id }
+                    },
+                    [
+                      message.user_id == _vm.userWith.id
+                        ? [
+                            _c("img", {
+                              attrs: {
+                                src: _vm.userWith.file
+                                  ? "/storage/" + _vm.userWith.file.file_path
+                                  : "/images/default-profile.png",
+                                alt: "Avatar"
+                              }
+                            })
+                          ]
+                        : [
+                            _c("img", {
+                              attrs: {
+                                src: _vm.user.file
+                                  ? "/storage/" + _vm.user.file.file_path
+                                  : "/images/default-profile.png",
+                                alt: "Avatar"
+                              }
+                            })
+                          ],
+                      _vm._v(" "),
+                      _c("p", [_vm._v(_vm._s(message.message))]),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "time-right" }, [
+                        _vm._v(_vm._s(message.created_at))
+                      ])
+                    ],
+                    2
                   )
-                ],
-                1
+                })
               )
             ],
             1

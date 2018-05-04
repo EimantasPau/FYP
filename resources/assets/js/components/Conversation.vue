@@ -1,12 +1,11 @@
 <template>
    <div v-if="user && conversation">
        <h1 class="grey--text text--darken-1">Talking to {{userWith.name}}</h1>
-       <v-btn @click="startVideo">Start video chat</v-btn>
        <v-divider></v-divider>
 
-       <v-layout row style="max-height: 50vh; overflow-y:auto">
-           <vue-scrollbar ref="Scrollbar">
-               <v-flex id="messageContainer">
+       <v-layout row>
+           <!--<vue-scrollbar ref="Scrollbar">-->
+               <v-flex id="messageContainer" style="max-height: 50vh; overflow-y:auto">
                    <div :key="message.id" v-for="message in conversation.conversations" class="container" :class="{darker: message.user_id != user.id}">
                        <template v-if="message.user_id == userWith.id">
                            <img :src="userWith.file ? '/storage/' + userWith.file.file_path : '/images/default-profile.png'" alt="Avatar">
@@ -18,7 +17,7 @@
                        <span class="time-right">{{message.created_at}}</span>
                    </div>
                </v-flex>
-           </vue-scrollbar>
+           <!--</vue-scrollbar>-->
        </v-layout>
 
        <v-layout row>
@@ -45,9 +44,13 @@
                 message: ''
             }
         },
+        mounted() {
+            let div = document.getElementById('messageContainer')
+            div.scrollTop = div.scrollHeight
+        },
         updated() {
-            let currentHeight = document.getElementById('messageContainer').scrollHeight;
-            this.$refs.Scrollbar.scrollToY(currentHeight)
+            let div = document.getElementById('messageContainer')
+            div.scrollTop = div.scrollHeight
         },
         components:{
             VueScrollbar
@@ -72,8 +75,10 @@
                 this.message = ''
                 this.$store.dispatch('addMessage', formData)
                     .then(()=>{
-                        let currentHeight = document.getElementById('messageContainer').scrollHeight;
-                        this.$refs.Scrollbar.scrollToY(currentHeight)
+                        let div = document.getElementById('messageContainer')
+                        div.scrollTop = div.scrollHeight - div.clientHeight
+                        // let currentHeight = document.getElementById('messageContainer').scrollHeight;
+                        // this.$refs.Scrollbar.scrollToY(currentHeight)
                     })
 
 
