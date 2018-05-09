@@ -69,11 +69,7 @@
                 if(this.$refs.file.files[0]){
                     formData.append('file', this.$refs.file.files[0])
                 }
-
-
-
                 this.$store.dispatch('addLesson', formData)
-
             },
             onDismissed() {
                 this.$store.dispatch('clearError','lessonCreate')

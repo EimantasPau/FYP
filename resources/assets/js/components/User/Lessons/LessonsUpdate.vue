@@ -75,12 +75,6 @@
                     formData: formData
                 }
 
-                // let formData = {
-                //     name: this.name,
-                //     content: this.content,
-                //     lesson_id: this.lesson_id,
-                //     course_id: this.lesson.course_id
-                // }
                 if(this.$refs.file.files[0]){
                     formData.append('file', this.$refs.file.files[0])
                 }

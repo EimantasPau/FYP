@@ -128,7 +128,8 @@ class LessonController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'content' => 'required'
+            'content' => 'required',
+            'file' => 'sometimes|mimes:mp4'
         ]);
         if ($validator->fails())  {
             return response()->json(['errors' => $validator->getMessageBag()->toArray()], 422);
