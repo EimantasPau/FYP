@@ -441,7 +441,6 @@ export const store = new Vuex.Store({
                    commit('setUser',response.data.user)
                    const token = response.data.token
                    localStorage.setItem('token', token)
-                  commit('setUser', response.data.user)
                })
                .catch(errors => {
                    commit('setLoading', false)

@@ -18,7 +18,7 @@
         </template>
         <v-divider></v-divider>
 
-        <blockquote v-if="lessons.length <= 0" class="blockquote">You haven't created any courses yet.</blockquote>
+        <blockquote v-if="lessons.length <= 0" class="blockquote">You haven't added any lessons to the course yet.</blockquote>
         <v-layout row wrap v-else v-for="item in lessons" :key="item.id">
             <v-flex xs12>
                 <v-layout row wrap>

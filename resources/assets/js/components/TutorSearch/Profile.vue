@@ -27,7 +27,7 @@
             <v-layout class="mb-3" justify-center>
                 <v-btn outline color="primary" @click="currentTab = 'profile-info'">User details</v-btn>
                 <v-btn outline color="deep-purple accent-1"  @click="currentTab = 'tutor-courses-info'">Courses</v-btn>
-                <v-btn outline color="deep-purple accent-1" @click="startConversation">Start conversation</v-btn>
+                <v-btn v-if="profileUser.id != user.id" outline color="deep-purple accent-3" @click="startConversation">Start conversation</v-btn>
             </v-layout>
             <transition name="fade" mode="out-in">
                 <component :is="currentTab" :id="id"></component>
@@ -59,6 +59,9 @@
             },
             profileImage() {
                 return this.profileUser.file ? '/storage/' +this.profileUser.file.file_path : '/images/default-profile.png'
+            },
+            user() {
+                return this.$store.getters.user
             }
         },
         methods: {

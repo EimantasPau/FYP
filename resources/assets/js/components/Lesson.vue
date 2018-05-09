@@ -1,6 +1,6 @@
 <template>
     <v-content>
-        <v-container v-if="lesson" grid-list-md>
+        <v-container v-if="lesson != null || lesson != undefined" grid-list-md>
             <v-divider my-3></v-divider>
             <v-layout row wrap justify-center>
                 <v-flex xs12 xl6>
@@ -12,8 +12,8 @@
                                 <source :src="videoPath" type="video/ogg">
                                 Your browser does not support the video tag.
                             </video>
-                            <div class="subheading mt-2"><strong>Course:</strong> <router-link :to="'/courses/' + lesson.course_id">{{course.name}}</router-link></div>
-                            <div id="textPlaceholder"></div>
+                            <div v-if="course" class="subheading mt-2"><strong>Course:</strong> <router-link :to="'/courses/' + lesson.course_id">{{course.name}}</router-link></div>
+                            <div v-html="lesson.content"></div>
                         </v-card-text>
                     </v-card>
                 </v-flex>
@@ -88,8 +88,20 @@
         name: "Lesson",
         props: ['id'],
         created() {
-            this.description = this.lesson.content
-            this.course_id = this.lesson.course_id
+            let token = localStorage.getItem('token')
+            axios.post('/api/lessons/search?lesson_id=' + this.id + '&token=' + token)
+                .then(response => {
+                    this.lesson = response.data.lesson
+                    let token = localStorage.getItem('token')
+                    axios.post('/api/courses/search?course_id=' + this.lesson.course_id + '&token=' + token)
+                        .then(response => {
+                            this.course = response.data.course
+                        })
+                })
+
+        },
+        mounted(){
+
             let token = localStorage.getItem('token')
             axios.get('/api/questions?lesson_id='+ this.id +'&token=' + token)
                 .then(response => {
@@ -99,13 +111,15 @@
                 .catch(errors => {
                     console.log(errors.response.data)
                 })
+
         },
         data() {
             return {
                 description: '',
-                course_id: '',
+                course: null,
                 question: '',
-                questions: []
+                questions: [],
+                lesson: null
             }
         },
         methods: {
@@ -136,45 +150,11 @@
             },
         },
         computed: {
-            lesson() {
-                let tutors = this.$store.getters.tutors
-                let lessons = []
-                tutors.forEach(tutor=> {
-                    tutor.owned_courses.forEach(course=>{
-                        lessons = lessons.concat(course.lessons.find(lesson=> {
-                            return lesson.id == this.id
-                        }))
-                    })
-                })
-                return lessons[0]
-            },
-            course() {
-                let tutors = this.$store.getters.tutors
-
-                let courses = []
-                tutors.forEach(tutor=> {
-                    let course = tutor.owned_courses.find(course=> {
-                        return course.id == this.course_id
-                    })
-                    if(course !== undefined){
-                        courses = courses.concat(course)
-                    }
-
-                })
-                console.log(courses)
-                return courses[0]
-
-            },
             videoPath() {
                 return '/storage/' + this.lesson.file.file_path
             },
             errors() {
                 return this.$store.getters.errors.questionCreate;
-            }
-        },
-        watch: {
-            description(description){
-                document.getElementById('textPlaceholder').innerHTML = description
             }
         }
     }

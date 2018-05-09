@@ -48999,7 +48999,6 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
                 commit('setUser', response.data.user);
                 var token = response.data.token;
                 localStorage.setItem('token', token);
-                commit('setUser', response.data.user);
             }).catch(function (errors) {
                 commit('setLoading', false);
                 var payload = {
@@ -85155,7 +85154,7 @@ var render = function() {
         _vm._v("Here are the courses that you've created.")
       ]),
       _vm._v(" "),
-      _vm.courses | (_vm.courses.length > 0)
+      _vm.courses.length > 0
         ? [
             _c("v-divider"),
             _vm._v(" "),
@@ -85190,118 +85189,113 @@ var render = function() {
                 _c("v-flex", { attrs: { xs3: "" } })
               ],
               1
-            )
+            ),
+            _vm._v(" "),
+            _c("v-divider")
           ]
-        : _vm._e(),
-      _vm._v(" "),
-      _c("v-divider"),
-      _vm._v(" "),
-      _vm.courses | (_vm.courses.length <= 0)
-        ? _c("blockquote", { staticClass: "blockquote" }, [
+        : _c("blockquote", { staticClass: "blockquote" }, [
             _vm._v("You haven't created any courses yet.")
-          ])
-        : _vm._l(_vm.courses, function(item) {
-            return _c(
-              "v-layout",
-              { key: item.id, attrs: { row: "" } },
+          ]),
+      _vm._v(" "),
+      _vm._l(_vm.courses, function(item) {
+        return _c(
+          "v-layout",
+          { key: item.id, attrs: { row: "" } },
+          [
+            _c(
+              "v-flex",
+              { attrs: { xs12: "" } },
               [
                 _c(
-                  "v-flex",
-                  { attrs: { xs12: "" } },
+                  "v-layout",
+                  { attrs: { row: "" } },
                   [
+                    _c("v-flex", { attrs: { xs12: "", md3: "" } }, [
+                      _c("div", { staticClass: "list-text" }, [
+                        _vm._v(_vm._s(item.name))
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("v-flex", { attrs: { xs12: "", md3: "" } }, [
+                      _c("div", { staticClass: "list-text" }, [
+                        _vm._v(_vm._s(item.type.name))
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("v-flex", { attrs: { xs12: "", md3: "" } }, [
+                      _c("div", { staticClass: "list-text" }, [
+                        _vm._v(_vm._s(item.status.name))
+                      ])
+                    ]),
+                    _vm._v(" "),
                     _c(
-                      "v-layout",
-                      { attrs: { row: "" } },
+                      "v-flex",
+                      { attrs: { xs12: "", md3: "" } },
                       [
-                        _c("v-flex", { attrs: { xs12: "", md3: "" } }, [
-                          _c("div", { staticClass: "list-text" }, [
-                            _vm._v(_vm._s(item.name))
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("v-flex", { attrs: { xs12: "", md3: "" } }, [
-                          _c("div", { staticClass: "list-text" }, [
-                            _vm._v(_vm._s(item.type.name))
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("v-flex", { attrs: { xs12: "", md3: "" } }, [
-                          _c("div", { staticClass: "list-text" }, [
-                            _vm._v(_vm._s(item.status.name))
-                          ])
-                        ]),
+                        _c(
+                          "v-btn",
+                          {
+                            attrs: {
+                              flat: "",
+                              icon: "",
+                              color: "light-blue accent-4",
+                              router: "",
+                              to: "/account/courses/" + item.id + "/update/"
+                            }
+                          },
+                          [_c("v-icon", [_vm._v("edit")])],
+                          1
+                        ),
                         _vm._v(" "),
                         _c(
-                          "v-flex",
-                          { attrs: { xs12: "", md3: "" } },
-                          [
-                            _c(
+                          "v-btn",
+                          {
+                            attrs: { flat: "", icon: "", color: "pink" },
+                            on: {
+                              click: function($event) {
+                                _vm.onDelete(item)
+                              }
+                            }
+                          },
+                          [_c("v-icon", [_vm._v("delete_forever")])],
+                          1
+                        ),
+                        _vm._v(" "),
+                        item.type_id !== 3
+                          ? _c(
                               "v-btn",
                               {
                                 attrs: {
-                                  flat: "",
-                                  icon: "",
-                                  color: "light-blue accent-4",
+                                  outline: "",
+                                  color: "primary",
                                   router: "",
-                                  to: "/account/courses/" + item.id + "/update/"
+                                  to: "/account/courses/" + item.id + "/lessons"
                                 }
                               },
-                              [_c("v-icon", [_vm._v("edit")])],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "v-btn",
-                              {
-                                attrs: { flat: "", icon: "", color: "pink" },
-                                on: {
-                                  click: function($event) {
-                                    _vm.onDelete(item)
-                                  }
-                                }
-                              },
-                              [_c("v-icon", [_vm._v("delete_forever")])],
-                              1
-                            ),
-                            _vm._v(" "),
-                            item.type_id !== 3
-                              ? _c(
-                                  "v-btn",
-                                  {
-                                    attrs: {
-                                      outline: "",
-                                      color: "primary",
-                                      router: "",
-                                      to:
-                                        "/account/courses/" +
-                                        item.id +
-                                        "/lessons"
-                                    }
-                                  },
-                                  [
-                                    _c("v-icon", [_vm._v("list")]),
-                                    _vm._v(
-                                      "\n                        Lessons\n                    "
-                                    )
-                                  ],
-                                  1
+                              [
+                                _c("v-icon", [_vm._v("list")]),
+                                _vm._v(
+                                  "\n                        Lessons\n                    "
                                 )
-                              : _vm._e()
-                          ],
-                          1
-                        )
+                              ],
+                              1
+                            )
+                          : _vm._e()
                       ],
                       1
-                    ),
-                    _vm._v(" "),
-                    _c("v-divider")
+                    )
                   ],
                   1
-                )
+                ),
+                _vm._v(" "),
+                _c("v-divider")
               ],
               1
             )
-          })
+          ],
+          1
+        )
+      })
     ],
     2
   )
@@ -86089,7 +86083,7 @@ var render = function() {
       _vm._v(" "),
       _vm.lessons.length <= 0
         ? _c("blockquote", { staticClass: "blockquote" }, [
-            _vm._v("You haven't created any courses yet.")
+            _vm._v("You haven't added any lessons to the course yet.")
           ])
         : _vm._l(_vm.lessons, function(item) {
             return _c(
@@ -86385,7 +86379,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         onCancel: function onCancel() {
             this.$store.dispatch('clearError', 'lessonCreate');
-            this.$router.push('/account/courses/' + this.id);
+            this.$router.push('/account/courses/' + this.id + '/lessons');
         },
         selectFile: function selectFile() {
             this.$refs.file.click();
@@ -88037,7 +88031,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -88120,6 +88114,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         profileImage: function profileImage() {
             return this.profileUser.file ? '/storage/' + this.profileUser.file.file_path : '/images/default-profile.png';
+        },
+        user: function user() {
+            return this.$store.getters.user;
         }
     },
     methods: {
@@ -89283,14 +89280,16 @@ var render = function() {
                     [_vm._v("Courses")]
                   ),
                   _vm._v(" "),
-                  _c(
-                    "v-btn",
-                    {
-                      attrs: { outline: "", color: "deep-purple accent-1" },
-                      on: { click: _vm.startConversation }
-                    },
-                    [_vm._v("Start conversation")]
-                  )
+                  _vm.profileUser.id != _vm.user.id
+                    ? _c(
+                        "v-btn",
+                        {
+                          attrs: { outline: "", color: "deep-purple accent-3" },
+                          on: { click: _vm.startConversation }
+                        },
+                        [_vm._v("Start conversation")]
+                      )
+                    : _vm._e()
                 ],
                 1
               ),
@@ -90694,7 +90693,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -90799,12 +90798,22 @@ var _ = __webpack_require__(5);
     created: function created() {
         var _this = this;
 
-        this.description = this.lesson.content;
-        this.course_id = this.lesson.course_id;
+        var token = localStorage.getItem('token');
+        __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('/api/lessons/search?lesson_id=' + this.id + '&token=' + token).then(function (response) {
+            _this.lesson = response.data.lesson;
+            var token = localStorage.getItem('token');
+            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('/api/courses/search?course_id=' + _this.lesson.course_id + '&token=' + token).then(function (response) {
+                _this.course = response.data.course;
+            });
+        });
+    },
+    mounted: function mounted() {
+        var _this2 = this;
+
         var token = localStorage.getItem('token');
         __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('/api/questions?lesson_id=' + this.id + '&token=' + token).then(function (response) {
             console.log(JSON.stringify(response.data));
-            _this.questions = response.data.questions;
+            _this2.questions = response.data.questions;
         }).catch(function (errors) {
             console.log(errors.response.data);
         });
@@ -90812,15 +90821,16 @@ var _ = __webpack_require__(5);
     data: function data() {
         return {
             description: '',
-            course_id: '',
+            course: null,
             question: '',
-            questions: []
+            questions: [],
+            lesson: null
         };
     },
 
     methods: {
         onQuestionSubmit: function onQuestionSubmit() {
-            var _this2 = this;
+            var _this3 = this;
 
             var formData = {
                 body: this.question,
@@ -90831,14 +90841,14 @@ var _ = __webpack_require__(5);
             var token = localStorage.getItem('token');
             __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('/api/questions?token=' + token, formData).then(function (response) {
                 console.log(response.data.question);
-                _this2.questions.unshift(response.data.question[0]);
+                _this3.questions.unshift(response.data.question[0]);
             }).catch(function (errors) {
                 console.log('setting error');
                 var payload = {
                     form: 'questionCreate',
                     errors: errors.response.data.errors
                 };
-                _this2.$store.dispatch('setError', payload);
+                _this3.$store.dispatch('setError', payload);
             });
         },
         onDismissed: function onDismissed() {
@@ -90846,47 +90856,11 @@ var _ = __webpack_require__(5);
         }
     },
     computed: {
-        lesson: function lesson() {
-            var _this3 = this;
-
-            var tutors = this.$store.getters.tutors;
-            var lessons = [];
-            tutors.forEach(function (tutor) {
-                tutor.owned_courses.forEach(function (course) {
-                    lessons = lessons.concat(course.lessons.find(function (lesson) {
-                        return lesson.id == _this3.id;
-                    }));
-                });
-            });
-            return lessons[0];
-        },
-        course: function course() {
-            var _this4 = this;
-
-            var tutors = this.$store.getters.tutors;
-
-            var courses = [];
-            tutors.forEach(function (tutor) {
-                var course = tutor.owned_courses.find(function (course) {
-                    return course.id == _this4.course_id;
-                });
-                if (course !== undefined) {
-                    courses = courses.concat(course);
-                }
-            });
-            console.log(courses);
-            return courses[0];
-        },
         videoPath: function videoPath() {
             return '/storage/' + this.lesson.file.file_path;
         },
         errors: function errors() {
             return this.$store.getters.errors.questionCreate;
-        }
-    },
-    watch: {
-        description: function description(_description) {
-            document.getElementById('textPlaceholder').innerHTML = _description;
         }
     }
 });
@@ -90902,7 +90876,7 @@ var render = function() {
   return _c(
     "v-content",
     [
-      _vm.lesson
+      _vm.lesson != null || _vm.lesson != undefined
         ? _c(
             "v-container",
             { attrs: { "grid-list-md": "" } },
@@ -90959,26 +90933,32 @@ var render = function() {
                                 )
                               : _vm._e(),
                             _vm._v(" "),
-                            _c(
-                              "div",
-                              { staticClass: "subheading mt-2" },
-                              [
-                                _c("strong", [_vm._v("Course:")]),
-                                _vm._v(" "),
-                                _c(
-                                  "router-link",
-                                  {
-                                    attrs: {
-                                      to: "/courses/" + _vm.lesson.course_id
-                                    }
-                                  },
-                                  [_vm._v(_vm._s(_vm.course.name))]
+                            _vm.course
+                              ? _c(
+                                  "div",
+                                  { staticClass: "subheading mt-2" },
+                                  [
+                                    _c("strong", [_vm._v("Course:")]),
+                                    _vm._v(" "),
+                                    _c(
+                                      "router-link",
+                                      {
+                                        attrs: {
+                                          to: "/courses/" + _vm.lesson.course_id
+                                        }
+                                      },
+                                      [_vm._v(_vm._s(_vm.course.name))]
+                                    )
+                                  ],
+                                  1
                                 )
-                              ],
-                              1
-                            ),
+                              : _vm._e(),
                             _vm._v(" "),
-                            _c("div", { attrs: { id: "textPlaceholder" } })
+                            _c("div", {
+                              domProps: {
+                                innerHTML: _vm._s(_vm.lesson.content)
+                              }
+                            })
                           ])
                         ],
                         1
@@ -91280,7 +91260,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -91291,6 +91271,13 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -91471,6 +91458,26 @@ var render = function() {
                             "v-list",
                             { attrs: { "two-line": "" } },
                             [
+                              _vm.groups.length <= 0
+                                ? _c(
+                                    "v-list-tile",
+                                    [
+                                      _c(
+                                        "v-list-tile-content",
+                                        [
+                                          _c("v-list-tile-title", [
+                                            _vm._v(
+                                              "\n                                    You have not started any conversations\n                                "
+                                            )
+                                          ])
+                                        ],
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  )
+                                : _vm._e(),
+                              _vm._v(" "),
                               _vm._l(_vm.groups, function(group) {
                                 return [
                                   _c(

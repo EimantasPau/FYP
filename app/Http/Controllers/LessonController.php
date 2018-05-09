@@ -24,6 +24,14 @@ class LessonController extends Controller
         ]);
     }
 
+    public function search(Request $request){
+        $lesson_id = $request->input('lesson_id');
+        $lesson = Lesson::findOrFail($lesson_id);
+        return response()->json([
+            'lesson' => $lesson
+        ]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

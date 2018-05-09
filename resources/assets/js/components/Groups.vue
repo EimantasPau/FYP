@@ -14,6 +14,13 @@
                             </v-list>
                         </v-toolbar>
                         <v-list two-line>
+                            <v-list-tile v-if="groups.length <= 0">
+                                <v-list-tile-content>
+                                    <v-list-tile-title>
+                                        You have not started any conversations
+                                    </v-list-tile-title>
+                                </v-list-tile-content>
+                            </v-list-tile>
                             <template v-for="group in groups">
                                 <v-list-tile avatar :key="group.id"
                                              router

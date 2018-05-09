@@ -20,6 +20,14 @@ class CourseController extends Controller
         //
     }
 
+
+    public function search(Request $request) {
+        $course = Course::findOrFail($request->input('course_id'));
+        return response()->json([
+            'course' => $course
+        ]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

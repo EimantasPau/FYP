@@ -2,7 +2,7 @@
     <v-container px-0 mx-0>
         <h2 class="display-1 grey--text text--darken-1">Your courses <v-btn router to="/account/courses/create" fab small color="light-blue accent-4"><v-icon medium color="white">add</v-icon ></v-btn></h2>
         <blockquote class="blockquote">Here are the courses that you've created.</blockquote>
-        <template v-if="courses | courses.length > 0">
+        <template v-if="courses.length > 0">
             <v-divider></v-divider>
             <v-layout row wrap hidden-sm-only>
                 <v-flex xs3>
@@ -16,10 +16,10 @@
                 </v-flex>
                 <v-flex xs3></v-flex>
             </v-layout>
+            <v-divider></v-divider>
         </template>
-        <v-divider></v-divider>
-        <blockquote v-if="courses | courses.length <= 0" class="blockquote">You haven't created any courses yet.</blockquote>
-        <v-layout row  v-else v-for="item in courses" :key="item.id">
+        <blockquote v-else class="blockquote">You haven't created any courses yet.</blockquote>
+        <v-layout row v-for="item in courses" :key="item.id">
             <v-flex xs12>
                 <v-layout row >
                     <v-flex xs12 md3>

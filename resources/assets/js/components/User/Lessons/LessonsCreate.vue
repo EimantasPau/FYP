@@ -78,7 +78,7 @@
             },
             onCancel() {
                 this.$store.dispatch('clearError','lessonCreate')
-                this.$router.push('/account/courses/' + this.id)
+                this.$router.push('/account/courses/' + this.id + '/lessons')
             },
             selectFile(){
                 this.$refs.file.click()
