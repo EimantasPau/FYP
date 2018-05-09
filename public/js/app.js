@@ -85119,191 +85119,186 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm.courses
-    ? _c(
-        "v-container",
-        { attrs: { "px-0": "", "mx-0": "" } },
+  return _c(
+    "v-container",
+    { attrs: { "px-0": "", "mx-0": "" } },
+    [
+      _c(
+        "h2",
+        { staticClass: "display-1 grey--text text--darken-1" },
         [
+          _vm._v("Your courses "),
           _c(
-            "h2",
-            { staticClass: "display-1 grey--text text--darken-1" },
+            "v-btn",
+            {
+              attrs: {
+                router: "",
+                to: "/account/courses/create",
+                fab: "",
+                small: "",
+                color: "light-blue accent-4"
+              }
+            },
             [
-              _vm._v("Your courses "),
-              _c(
-                "v-btn",
-                {
-                  attrs: {
-                    router: "",
-                    to: "/account/courses/create",
-                    fab: "",
-                    small: "",
-                    color: "light-blue accent-4"
-                  }
-                },
-                [
-                  _c("v-icon", { attrs: { medium: "", color: "white" } }, [
-                    _vm._v("add")
-                  ])
-                ],
-                1
-              )
+              _c("v-icon", { attrs: { medium: "", color: "white" } }, [
+                _vm._v("add")
+              ])
             ],
             1
-          ),
-          _vm._v(" "),
-          _c("blockquote", { staticClass: "blockquote" }, [
-            _vm._v("Here are the courses that you've created.")
-          ]),
-          _vm._v(" "),
-          _vm.courses.length > 0
-            ? [
-                _c("v-divider"),
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("blockquote", { staticClass: "blockquote" }, [
+        _vm._v("Here are the courses that you've created.")
+      ]),
+      _vm._v(" "),
+      _vm.courses && _vm.courses.length > 0
+        ? [
+            _c("v-divider"),
+            _vm._v(" "),
+            _c(
+              "v-layout",
+              { attrs: { row: "", wrap: "", "hidden-sm-only": "" } },
+              [
+                _c("v-flex", { attrs: { xs3: "" } }, [
+                  _c(
+                    "div",
+                    { staticClass: "title grey--text text--darken-1" },
+                    [_vm._v("Name")]
+                  )
+                ]),
                 _vm._v(" "),
+                _c("v-flex", { attrs: { xs3: "" } }, [
+                  _c(
+                    "div",
+                    { staticClass: "title grey--text text--darken-1" },
+                    [_vm._v("Type")]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("v-flex", { attrs: { xs3: "" } }, [
+                  _c(
+                    "div",
+                    { staticClass: "title grey--text text--darken-1" },
+                    [_vm._v("Status")]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("v-flex", { attrs: { xs3: "" } })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c("v-divider")
+          ]
+        : _c("blockquote", { staticClass: "blockquote" }, [
+            _vm._v("You haven't created any courses yet.")
+          ]),
+      _vm._v(" "),
+      _vm._l(_vm.courses, function(item) {
+        return _c(
+          "v-layout",
+          { key: item.id, attrs: { row: "" } },
+          [
+            _c(
+              "v-flex",
+              { attrs: { xs12: "" } },
+              [
                 _c(
                   "v-layout",
-                  { attrs: { row: "", wrap: "", "hidden-sm-only": "" } },
+                  { attrs: { row: "" } },
                   [
-                    _c("v-flex", { attrs: { xs3: "" } }, [
-                      _c(
-                        "div",
-                        { staticClass: "title grey--text text--darken-1" },
-                        [_vm._v("Name")]
-                      )
+                    _c("v-flex", { attrs: { xs12: "", md3: "" } }, [
+                      _c("div", { staticClass: "list-text" }, [
+                        _vm._v(_vm._s(item.name))
+                      ])
                     ]),
                     _vm._v(" "),
-                    _c("v-flex", { attrs: { xs3: "" } }, [
-                      _c(
-                        "div",
-                        { staticClass: "title grey--text text--darken-1" },
-                        [_vm._v("Type")]
-                      )
+                    _c("v-flex", { attrs: { xs12: "", md3: "" } }, [
+                      _c("div", { staticClass: "list-text" }, [
+                        _vm._v(_vm._s(item.type.name))
+                      ])
                     ]),
                     _vm._v(" "),
-                    _c("v-flex", { attrs: { xs3: "" } }, [
-                      _c(
-                        "div",
-                        { staticClass: "title grey--text text--darken-1" },
-                        [_vm._v("Status")]
-                      )
+                    _c("v-flex", { attrs: { xs12: "", md3: "" } }, [
+                      _c("div", { staticClass: "list-text" }, [
+                        _vm._v(_vm._s(item.status.name))
+                      ])
                     ]),
                     _vm._v(" "),
-                    _c("v-flex", { attrs: { xs3: "" } })
+                    _c(
+                      "v-flex",
+                      { attrs: { xs12: "", md3: "" } },
+                      [
+                        _c(
+                          "v-btn",
+                          {
+                            attrs: {
+                              flat: "",
+                              icon: "",
+                              color: "light-blue accent-4",
+                              router: "",
+                              to: "/account/courses/" + item.id + "/update/"
+                            }
+                          },
+                          [_c("v-icon", [_vm._v("edit")])],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "v-btn",
+                          {
+                            attrs: { flat: "", icon: "", color: "pink" },
+                            on: {
+                              click: function($event) {
+                                _vm.onDelete(item)
+                              }
+                            }
+                          },
+                          [_c("v-icon", [_vm._v("delete_forever")])],
+                          1
+                        ),
+                        _vm._v(" "),
+                        item.type_id !== 3
+                          ? _c(
+                              "v-btn",
+                              {
+                                attrs: {
+                                  outline: "",
+                                  color: "primary",
+                                  router: "",
+                                  to: "/account/courses/" + item.id + "/lessons"
+                                }
+                              },
+                              [
+                                _c("v-icon", [_vm._v("list")]),
+                                _vm._v(
+                                  "\n                        Lessons\n                    "
+                                )
+                              ],
+                              1
+                            )
+                          : _vm._e()
+                      ],
+                      1
+                    )
                   ],
                   1
                 ),
                 _vm._v(" "),
                 _c("v-divider")
-              ]
-            : _c("blockquote", { staticClass: "blockquote" }, [
-                _vm._v("You haven't created any courses yet.")
-              ]),
-          _vm._v(" "),
-          _vm._l(_vm.courses, function(item) {
-            return _c(
-              "v-layout",
-              { key: item.id, attrs: { row: "" } },
-              [
-                _c(
-                  "v-flex",
-                  { attrs: { xs12: "" } },
-                  [
-                    _c(
-                      "v-layout",
-                      { attrs: { row: "" } },
-                      [
-                        _c("v-flex", { attrs: { xs12: "", md3: "" } }, [
-                          _c("div", { staticClass: "list-text" }, [
-                            _vm._v(_vm._s(item.name))
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("v-flex", { attrs: { xs12: "", md3: "" } }, [
-                          _c("div", { staticClass: "list-text" }, [
-                            _vm._v(_vm._s(item.type.name))
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("v-flex", { attrs: { xs12: "", md3: "" } }, [
-                          _c("div", { staticClass: "list-text" }, [
-                            _vm._v(_vm._s(item.status.name))
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c(
-                          "v-flex",
-                          { attrs: { xs12: "", md3: "" } },
-                          [
-                            _c(
-                              "v-btn",
-                              {
-                                attrs: {
-                                  flat: "",
-                                  icon: "",
-                                  color: "light-blue accent-4",
-                                  router: "",
-                                  to: "/account/courses/" + item.id + "/update/"
-                                }
-                              },
-                              [_c("v-icon", [_vm._v("edit")])],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "v-btn",
-                              {
-                                attrs: { flat: "", icon: "", color: "pink" },
-                                on: {
-                                  click: function($event) {
-                                    _vm.onDelete(item)
-                                  }
-                                }
-                              },
-                              [_c("v-icon", [_vm._v("delete_forever")])],
-                              1
-                            ),
-                            _vm._v(" "),
-                            item.type_id !== 3
-                              ? _c(
-                                  "v-btn",
-                                  {
-                                    attrs: {
-                                      outline: "",
-                                      color: "primary",
-                                      router: "",
-                                      to:
-                                        "/account/courses/" +
-                                        item.id +
-                                        "/lessons"
-                                    }
-                                  },
-                                  [
-                                    _c("v-icon", [_vm._v("list")]),
-                                    _vm._v(
-                                      "\n                        Lessons\n                    "
-                                    )
-                                  ],
-                                  1
-                                )
-                              : _vm._e()
-                          ],
-                          1
-                        )
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c("v-divider")
-                  ],
-                  1
-                )
               ],
               1
             )
-          })
-        ],
-        2
-      )
-    : _vm._e()
+          ],
+          1
+        )
+      })
+    ],
+    2
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
