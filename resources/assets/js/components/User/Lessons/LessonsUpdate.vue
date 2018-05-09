@@ -81,7 +81,7 @@
                 //     lesson_id: this.lesson_id,
                 //     course_id: this.lesson.course_id
                 // }
-                if(this.$refs.file){
+                if(this.$refs.file.files[0]){
                     formData.append('file', this.$refs.file.files[0])
                 }
                 console.log('updated: ' + JSON.stringify(payload.formData.get('file')))

@@ -86294,7 +86294,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -86371,10 +86371,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             formData.append('name', this.name);
             formData.append('content', this.content);
             formData.append('course_id', this.id);
-
-            if (this.$refs.file) {
+            if (this.$refs.file.files[0]) {
                 formData.append('file', this.$refs.file.files[0]);
             }
+
             this.$store.dispatch('addLesson', formData);
         },
         onDismissed: function onDismissed() {
@@ -86794,7 +86794,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 //     lesson_id: this.lesson_id,
                 //     course_id: this.lesson.course_id
                 // }
-            };if (this.$refs.file) {
+            };if (this.$refs.file.files[0]) {
                 formData.append('file', this.$refs.file.files[0]);
             }
             console.log('updated: ' + JSON.stringify(payload.formData.get('file')));

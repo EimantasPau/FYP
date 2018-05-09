@@ -66,10 +66,12 @@
                 formData.append('name', this.name)
                 formData.append('content', this.content)
                 formData.append('course_id', this.id)
-
-                if(this.$refs.file){
+                if(this.$refs.file.files[0]){
                     formData.append('file', this.$refs.file.files[0])
                 }
+
+
+
                 this.$store.dispatch('addLesson', formData)
 
             },

@@ -53,6 +53,7 @@ class LessonController extends Controller
 
         $validator = Validator::make($request->all(), [
             'name' => 'required',
+            'file' => 'sometimes|mimes:mp4',
             'content' => 'required',
             'course_id' => 'required'
         ]);
