@@ -48614,6 +48614,9 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
             state.user.experience.splice(index, 1);
         },
         addCourse: function addCourse(state, payload) {
+            if (state.user.owned_courses === undefined) {
+                state.user.owned_courses = [];
+            }
             state.user.owned_courses.push(payload);
         },
         updateCourse: function updateCourse(state, payload) {

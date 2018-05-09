@@ -98,6 +98,9 @@ export const store = new Vuex.Store({
            state.user.experience.splice(index, 1)
        },
        addCourse(state, payload) {
+           if(state.user.owned_courses === undefined){
+               state.user.owned_courses = []
+           }
            state.user.owned_courses.push(payload)
        },
        updateCourse(state, payload) {
