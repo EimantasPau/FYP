@@ -1,5 +1,5 @@
 <template>
-    <v-container px-0 mx-0>
+    <v-container px-0 mx-0 v-if="courses">
         <h2 class="display-1 grey--text text--darken-1">Your courses <v-btn router to="/account/courses/create" fab small color="light-blue accent-4"><v-icon medium color="white">add</v-icon ></v-btn></h2>
         <blockquote class="blockquote">Here are the courses that you've created.</blockquote>
         <template v-if="courses.length > 0">
