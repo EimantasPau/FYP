@@ -75,8 +75,10 @@
                     formData: formData
                 }
 
-                if(this.$refs.file.files[0]){
-                    formData.append('file', this.$refs.file.files[0])
+                if(this.$refs.file){
+                    if(this.$refs.file.files[0] != undefined){
+                        formData.append('file', this.$refs.file.files[0])
+                    }
                 }
                 console.log('updated: ' + JSON.stringify(payload.formData.get('file')))
                 this.$store.dispatch('updateLesson', payload)
